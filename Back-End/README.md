@@ -23,8 +23,8 @@ O sistema foi desenvolvido com **Node.js** e **Express**, e utiliza **Prisma** p
 
 1. **Clone o repositório**:
    ```bash
-   git clone https://github.com/seuusuario/mobsocial-backend.git
-   cd mobsocial-backend
+   git clone https://github.com/filipetocchio/MobSocial-2024-2.git
+   cd .\MobSocial-2024-2\Back-End\
    ```
 
 2. **Instale as dependências**:
