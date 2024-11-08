@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import Logo from "../assets/Logo.jpg";
 import { FormControl, Input } from "@mui/material";
+import LoginService from "../services/login";
 
 const Login = () => {
   const [email, setEmail] = useState("");
@@ -10,7 +11,7 @@ const Login = () => {
   const [activateVoluntario, setActivateVoluntario] = useState(false);
   const [activateOng, setActivateOng] = useState(false);
 
-  const handleLogin = () => {
+  const handleLogin = async () => {
     let hasError = false;
     if (!email) {
       setEmailError(true);
@@ -27,7 +28,7 @@ const Login = () => {
     }
 
     if (!hasError) {
-      
+      await LoginService({ email, password });
     }
   };
 

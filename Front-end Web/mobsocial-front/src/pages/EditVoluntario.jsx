@@ -1,9 +1,11 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { FormControl, InputLabel } from "@mui/material";
 import Input from "../components/cadastro/Input";
-import UserLogo from "../assets/user.svg";
+import { UserPhotoContext, UserPhotoProvider } from "../context/UserPhotoContext"; // Updated import path
+import User from "../components/dashboardVoluntario/user";
+import EditarFoto from "../components/Voluntario/EditarFoto"; // Import EditarFoto component
 
-const editVoluntario = () => {
+const EditVoluntarioComponent = () => {
   const [focusedInput, setFocusedInput] = useState(null);
   const [nome, setNome] = useState("");
   const [sobrenome, setSobrenome] = useState("");
@@ -14,7 +16,7 @@ const editVoluntario = () => {
   const [complemento, setComplemento] = useState("");
   const [numero, setNumero] = useState("");
   const [errors, setErrors] = useState({});
-  const [userPhoto, setUserPhoto] = useState(UserLogo);
+  const { userPhoto, setUserPhoto } = useContext(UserPhotoContext);
 
   const handleSubmit = () => {
     const newErrors = {};
@@ -24,45 +26,30 @@ const editVoluntario = () => {
     setErrors(newErrors);
 
     if (Object.keys(newErrors).length === 0) {
-      // Submit the form
-    }
-  };
-
-  const handleFileChange = (event) => {
-    const file = event.target.files[0];
-    if (file) {
-      const reader = new FileReader();
-      reader.onload = (e) => {
-        setUserPhoto(e.target.result);
+      const formData = {
+        nome,
+        sobrenome,
+        telefone,
+        email,
+        endereco,
+        cep,
+        complemento,
+        numero,
+        userPhoto,
       };
-      reader.readAsDataURL(file);
+      console.log("Form data to be submitted:", formData);
+      // Submit the form data to the server or handle it as needed
     }
   };
 
-  const handleChangePhotoClick = () => {
-    document.getElementById("fileInput").click();
-  };
+  
 
   return (
     <div className="min-h-screen bg-black flex flex-col">
       <div className="p-14 px-72 w-full flex-grow">
-        <div className="border-2 border-[#A3A3A3] rounded-lg p-8 px-20 mb-8 flex flex-row justify-between items-center">
-          <img src={userPhoto} alt="User" className="h-32 w-32 rounded-full border-2 border-[#A3A3A3]"></img>
-          <button
-            onClick={handleChangePhotoClick}
-            className="hover:brightness-90 hover:scale-105 text-[#A3A3A3] text-xl border-2 border-[#A3A3A3] rounded-lg p-4 h-12 flex items-center"
-          >
-            ALTERAR FOTO
-          </button>
-          <input
-            type="file"
-            id="fileInput"
-            style={{ display: "none" }}
-            onChange={handleFileChange}
-          />
-        </div>
         <div className="w-full">
           <FormControl className="flex flex-col gap-8 w-full items-center">
+            <EditarFoto /> {/* Use EditarFoto component */}
             <button
               onClick={handleSubmit}
               className="bg-[#1E1E1E] border-2 text-xl border-[#A3A3A3] text-[#A3A3A3] rounded-lg w-full h-14 mb-8"
@@ -80,7 +67,7 @@ const editVoluntario = () => {
               errorMessage={errors.nome}
               focusedInput={focusedInput}
               setFocusedInput={setFocusedInput}
-              style={{ width: '100%' }}
+              style={{ width: '100%', height: '40px' }}
             />
 
             <Input
@@ -91,7 +78,7 @@ const editVoluntario = () => {
               placeholder="Sobrenome"
               focusedInput={focusedInput}
               setFocusedInput={setFocusedInput}
-              style={{ width: '100%' }}
+              style={{ width: '100%', height: '40px' }}
             />
 
             <Input
@@ -104,7 +91,7 @@ const editVoluntario = () => {
               errorMessage={errors.telefone}
               focusedInput={focusedInput}
               setFocusedInput={setFocusedInput}
-              style={{ width: '100%' }}
+              style={{ width: '100%', height: '40px' }}
             />
 
             <Input
@@ -117,7 +104,7 @@ const editVoluntario = () => {
               errorMessage={errors.email}
               focusedInput={focusedInput}
               setFocusedInput={setFocusedInput}
-              style={{ width: '100%' }}
+              style={{ width: '100%', height: '40px' }}
             />
 
             <Input
@@ -128,7 +115,7 @@ const editVoluntario = () => {
               placeholder="Endereço"
               focusedInput={focusedInput}
               setFocusedInput={setFocusedInput}
-              style={{ width: '100%' }}
+              style={{ width: '100%', height: '40px' }}
             />
 
             <Input
@@ -139,7 +126,7 @@ const editVoluntario = () => {
               placeholder="CEP"
               focusedInput={focusedInput}
               setFocusedInput={setFocusedInput}
-              style={{ width: '100%' }}
+              style={{ width: '100%', height: '40px' }}
             />
 
             <Input
@@ -150,7 +137,7 @@ const editVoluntario = () => {
               placeholder="Complemento (Casa, Apt.)"
               focusedInput={focusedInput}
               setFocusedInput={setFocusedInput}
-              style={{ width: '100%' }}
+              style={{ width: '100%', height: '40px' }}
             />
 
             <Input
@@ -161,7 +148,7 @@ const editVoluntario = () => {
               placeholder="Número"
               focusedInput={focusedInput}
               setFocusedInput={setFocusedInput}
-              style={{ width: '100%' }}
+              style={{ width: '100%', height: '40px' }}
             />
           </FormControl>
         </div>
@@ -170,4 +157,10 @@ const editVoluntario = () => {
   );
 };
 
-export default editVoluntario;
+const EditVoluntario = () => (
+  <UserPhotoProvider>
+    <EditVoluntarioComponent />
+  </UserPhotoProvider>
+);
+
+export default EditVoluntario;
