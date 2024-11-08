@@ -12,9 +12,9 @@ export function Router() {
   return (
     <UserPhotoProvider>
       <Routes>
-        <Route path="/" element={<Login />} />
+      <Route path="/" element={<Home />} />
+        <Route path="/login" element={<Login />} />
         <Route path="/cadastro" element={<Cadastro />} />
-        <Route path="/home" element={<Home />} />
         <Route path="/EditVoluntario" element={<EditVoluntario />} />
         <Route path="/NewProject" element={<NewProject />} />
         <Route path="/Dashboard-Voluntario" element={<DashboardVoluntario /> } /> 

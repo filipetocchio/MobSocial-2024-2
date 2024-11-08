@@ -19,11 +19,12 @@ const Cadastro = () => {
 
   return (
     <div className="h-[100vh] font-bold text-[#A3A3A3] w-full flex flex-col gap-8 items-center justify-center bg-black overflow-scroll">
-      <div className="border-[1px] border-[#A3A3A3] rounded-lg h-auto w-[30%]">
-        <div className="flex flex-col w-full items-center mt-12">
+      <div className="border-[1px] border-[#A3A3A3] flex justify-center rounded-lg h-auto w-[30%]">
+        <div className="flex flex-col w-[75%] items-center mt-12">
           <img
+            onClick={() =>  {window.location.href="/" }}
             src={Logo}
-            className="rounded-full h-auto w-44 mb-12"
+            className="rounded-full h-auto w-44 mb-12 cursor-pointer"
             alt="logo"
           />
           <div className="w-full">
@@ -78,7 +79,7 @@ const Cadastro = () => {
 
       <div className="flex justify-center border-[1px] border-[#A3A3A3] rounded-lg p-4">
         <h1 className="">Tem uma conta? </h1>
-        <a href="/" className="text-[#034D92] indent-2">
+        <a href="/login" className="text-[#034D92] indent-2">
           Conecte-se
         </a>
       </div>

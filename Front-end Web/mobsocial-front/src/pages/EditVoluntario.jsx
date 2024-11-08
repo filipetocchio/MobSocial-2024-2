@@ -1,11 +1,14 @@
 import React, { useState, useContext } from "react";
+import { useParams } from "react-router-dom"; // Import useParams
 import { FormControl, InputLabel } from "@mui/material";
 import Input from "../components/cadastro/Input";
 import { UserPhotoContext, UserPhotoProvider } from "../context/UserPhotoContext"; // Updated import path
 import User from "../components/dashboardVoluntario/user";
 import EditarFoto from "../components/Voluntario/EditarFoto"; // Import EditarFoto component
+import editVoluntario from '../services/editVoluntario'; // Import the service function
 
-const EditVoluntarioComponent = () => {
+const EditVoluntario = () => {
+  const { voluntarioId } = useParams(); // Get voluntarioId from URL params
   const [focusedInput, setFocusedInput] = useState(null);
   const [nome, setNome] = useState("");
   const [sobrenome, setSobrenome] = useState("");
@@ -18,7 +21,7 @@ const EditVoluntarioComponent = () => {
   const [errors, setErrors] = useState({});
   const { userPhoto, setUserPhoto } = useContext(UserPhotoContext);
 
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
     const newErrors = {};
     if (!nome) newErrors.nome = "Nome é obrigatório";
     if (!email) newErrors.email = "E-mail é obrigatório";
@@ -37,8 +40,12 @@ const EditVoluntarioComponent = () => {
         numero,
         userPhoto,
       };
-      console.log("Form data to be submitted:", formData);
-      // Submit the form data to the server or handle it as needed
+      try {
+        const updatedData = await editVoluntario(voluntarioId, formData); // Use the service function
+        console.log("Updated volunteer data:", updatedData);
+      } catch (error) {
+        console.error("Failed to update volunteer data:", error);
+      }
     }
   };
 
@@ -157,10 +164,5 @@ const EditVoluntarioComponent = () => {
   );
 };
 
-const EditVoluntario = () => (
-  <UserPhotoProvider>
-    <EditVoluntarioComponent />
-  </UserPhotoProvider>
-);
 
 export default EditVoluntario;

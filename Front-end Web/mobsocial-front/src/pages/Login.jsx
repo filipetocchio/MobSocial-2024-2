@@ -48,7 +48,8 @@ const Login = () => {
         <div className="flex flex-col w-full items-center mt-12">
           <img
             src={Logo}
-            className="rounded-full h-auto w-44 mb-12"
+            onClick={() =>  {window.location.href="/" }}
+            className="rounded-full h-auto w-44 mb-12 cursor-pointer"
             alt="logo"
           />
           <div className="w-full mb-6">
