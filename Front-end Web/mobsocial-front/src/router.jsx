@@ -7,6 +7,9 @@ import NewProject from "./pages/NewProject";
 import DashboardVoluntario from "./pages/DashboardVoluntario";
 import PerfilVoluntario from "./pages/PerfilVoluntario";
 import { UserPhotoProvider } from "./context/UserPhotoContext";
+import DashboardONG from "./pages/dashboardONG";
+import PerfilONG from "./pages/perfilONG";
+
 
 export function Router() {
   return (
@@ -18,7 +21,9 @@ export function Router() {
         <Route path="/EditVoluntario" element={<EditVoluntario />} />
         <Route path="/NewProject" element={<NewProject />} />
         <Route path="/Dashboard-Voluntario" element={<DashboardVoluntario /> } /> 
+        <Route path="/DashboardONG" element={<DashboardONG /> } /> 
         <Route path="/PerfilVoluntario" element={<PerfilVoluntario />} />
+        <Route path="/PerfilONG" element={<PerfilONG />} />
       </Routes>
     </UserPhotoProvider>
   );

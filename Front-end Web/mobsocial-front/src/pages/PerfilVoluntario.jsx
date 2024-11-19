@@ -1,10 +1,21 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import EditarFoto from "../components/Voluntario/EditarFoto";
 import Logo from "../assets/LogoAnimal.svg"
 import ProjetosRecomendados from "../components/dashboardVoluntario/projetosRecomendados";
 import Cachorrinho from "../assets/Cachorrinho.png"
+import User from "../components/dashboardVoluntario/user";
 
 const PerfilVoluntario = () => {
+  const [isProjeto, setIsProjeto] = useState(false);
+  const [isVoluntario, setIsVoluntario] = useState(false);
+
+  useEffect(() => {
+    if (window.location.pathname === "/PerfilVoluntario") {
+      setIsProjeto(true);
+      setIsVoluntario(true);
+    }
+  }, []);
+
   const randomDate1 = new Date(
     +new Date() - Math.floor(Math.random() * 10000000000) // Converte a data atual para timestamp, subtrai um valor aleatório e converte de volta para data
   );
@@ -36,7 +47,7 @@ proporcionando lares amorosos e responsáveis.`,
     }
 ]
   return (
-    <div className="bg-black text-white min-h-screen flex justify-center py-12">
+    <div className="bg-black text-white min-h-screen grid grid-cols-[6fr_1fr] pl-32 py-12 px-8">
       <div className="w-[75%]">
         <EditarFoto />
 
@@ -44,6 +55,10 @@ proporcionando lares amorosos e responsáveis.`,
           <h1 className="text-xl p-4">Projetos Inscritos</h1>
         </div>
         <ProjetosRecomendados projetos={projetosInscritos} isPerfil={true} />
+      </div>
+      <div className="h-auto">
+        <User isProjeto={isProjeto}
+        isVoluntario={isVoluntario} />
       </div>
     </div>
   );

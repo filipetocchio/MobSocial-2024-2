@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import { useParams } from "react-router-dom"; // Import useParams
 import { FormControl, InputLabel } from "@mui/material";
 import Input from "../components/cadastro/Input";
@@ -8,6 +8,7 @@ import EditarFoto from "../components/Voluntario/EditarFoto"; // Import EditarFo
 import editVoluntario from '../services/editVoluntario'; // Import the service function
 
 const EditVoluntario = () => {
+  const [isPerfil, setIsPerfil] = useState(false);
   const { voluntarioId } = useParams(); // Get voluntarioId from URL params
   const [focusedInput, setFocusedInput] = useState(null);
   const [nome, setNome] = useState("");
@@ -20,6 +21,13 @@ const EditVoluntario = () => {
   const [numero, setNumero] = useState("");
   const [errors, setErrors] = useState({});
   const { userPhoto, setUserPhoto } = useContext(UserPhotoContext);
+
+  useEffect(() => {
+    if (window.location.pathname === "/EditVoluntario") {
+      setIsPerfil(true);
+    }
+  }, []);
+
 
   const handleSubmit = async () => {
     const newErrors = {};
@@ -52,9 +60,9 @@ const EditVoluntario = () => {
   
 
   return (
-    <div className="min-h-screen bg-black flex flex-col">
-      <div className="p-14 px-72 w-full flex-grow">
-        <div className="w-full">
+    <div className="min-h-screen bg-black grid grid-cols-[6fr_1fr] p-8 pl-[10%] pb-32">
+      <div className="w-full flex-grow">
+        <div className="max-w-[80%]">
           <FormControl className="flex flex-col gap-8 w-full items-center">
             <EditarFoto /> {/* Use EditarFoto component */}
             <button
@@ -69,12 +77,12 @@ const EditVoluntario = () => {
               type="text"
               value={nome}
               onChange={(e) => setNome(e.target.value)}
-              placeholder="Nome"
+              label="Nome"
               error={!!errors.nome}
               errorMessage={errors.nome}
               focusedInput={focusedInput}
               setFocusedInput={setFocusedInput}
-              style={{ width: '100%', height: '40px' }}
+              style={{ width: '100%', height: '40px', backgroundColor: '#000000', color: "white", fontWeight: "bold" }} // Set background color
             />
 
             <Input
@@ -82,10 +90,10 @@ const EditVoluntario = () => {
               type="text"
               value={sobrenome}
               onChange={(e) => setSobrenome(e.target.value)}
-              placeholder="Sobrenome"
+              label="Sobrenome"
               focusedInput={focusedInput}
               setFocusedInput={setFocusedInput}
-              style={{ width: '100%', height: '40px' }}
+              style={{ width: '100%', height: '40px', backgroundColor: '#000000', color: "white", fontWeight: "bold" }} // Set background color
             />
 
             <Input
@@ -93,12 +101,12 @@ const EditVoluntario = () => {
               type="number"
               value={telefone}
               onChange={(e) => setTelefone(e.target.value)}
-              placeholder="Telefone"
+              label="Telefone"
               error={!!errors.telefone}
               errorMessage={errors.telefone}
               focusedInput={focusedInput}
               setFocusedInput={setFocusedInput}
-              style={{ width: '100%', height: '40px' }}
+              style={{ width: '100%', height: '40px', backgroundColor: '#000000', color: "white", fontWeight: "bold" }} // Set background color
             />
 
             <Input
@@ -106,12 +114,12 @@ const EditVoluntario = () => {
               type="email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
-              placeholder="E-mail"
+              label="Email"
               error={!!errors.email}
               errorMessage={errors.email}
               focusedInput={focusedInput}
               setFocusedInput={setFocusedInput}
-              style={{ width: '100%', height: '40px' }}
+              style={{ width: '100%', height: '40px', backgroundColor: '#000000', color: "white", fontWeight: "bold" }} // Set background color
             />
 
             <Input
@@ -119,10 +127,10 @@ const EditVoluntario = () => {
               type="text"
               value={endereco}
               onChange={(e) => setEndereco(e.target.value)}
-              placeholder="Endereço"
+              label="Endereço"
               focusedInput={focusedInput}
               setFocusedInput={setFocusedInput}
-              style={{ width: '100%', height: '40px' }}
+              style={{ width: '100%', height: '40px', backgroundColor: '#000000', color: "white", fontWeight: "bold" }} // Set background color
             />
 
             <Input
@@ -130,21 +138,21 @@ const EditVoluntario = () => {
               type="number"
               value={cep}
               onChange={(e) => setCep(e.target.value)}
-              placeholder="CEP"
+              label="CEP"
               focusedInput={focusedInput}
               setFocusedInput={setFocusedInput}
-              style={{ width: '100%', height: '40px' }}
+              style={{ width: '100%', height: '40px', backgroundColor: '#000000', color: "white", fontWeight: "bold" }} // Set background color
             />
 
             <Input
               id="edit-voluntario-complemento"
               type="text"
               value={complemento}
+              label="Complemento (Casa, apt)"
               onChange={(e) => setComplemento(e.target.value)}
-              placeholder="Complemento (Casa, Apt.)"
               focusedInput={focusedInput}
               setFocusedInput={setFocusedInput}
-              style={{ width: '100%', height: '40px' }}
+              style={{ width: '100%', height: '40px', backgroundColor: '#000000', color: "white", fontWeight: "bold" }} // Set background color
             />
 
             <Input
@@ -152,14 +160,19 @@ const EditVoluntario = () => {
               type="number"
               value={numero}
               onChange={(e) => setNumero(e.target.value)}
-              placeholder="Número"
+              label="Número"
               focusedInput={focusedInput}
               setFocusedInput={setFocusedInput}
-              style={{ width: '100%', height: '40px' }}
+              style={{ width: '100%', height: '40px', backgroundColor: '#000000', color: "white", fontWeight: "bold" }} // Set background color
             />
           </FormControl>
         </div>
       </div>
+      <div className="h-auto">
+      <User 
+      isPerfil={isPerfil} />
+      </div>
+      
     </div>
   );
 };

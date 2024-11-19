@@ -1,21 +1,21 @@
 import React, { useState, useEffect } from "react";
 import SearchBar from "../components/SearchBar";
 import User from "../components/dashboardVoluntario/user";
-import ProjetosRecomendados from "../components/dashboardVoluntario/projetosRecomendados";
+import ProjetosCriados from "../components/dashboardONG/ProjetosCriados";
 import FT from "../assets/FT.png"
 import FT2 from "../assets/FT-2.png";
 import Project1 from "../assets/Project1.svg";
 import Project2 from "../assets/Project2.svg";
+import Plus from "../assets/plus.svg"
+import { Navigate, useNavigate } from "react-router-dom";
 
-const DashboardVoluntario = () => {
+const DashboardONG = () => {
   const [isDash, setIsDash] = useState(false);
-  const [isVoluntario, setIsVoluntario] = useState(false);
-
+  const navigate = useNavigate();
 
   useEffect(() => {
-    if (window.location.pathname === "/Dashboard-Voluntario") {
+    if (window.location.pathname === "/DashboardONG") {
       setIsDash(true);
-      setIsVoluntario(true);
     }
   }, []);
  
@@ -34,6 +34,7 @@ const DashboardVoluntario = () => {
 
   const projetos = [
     {
+      id: 1,
       titulo: "Reflorestamento Urbano",
       data: `${formatDate(randomDate1)} a ${formatDate(randomDate2)}`,
       imagem: FT,
@@ -47,6 +48,7 @@ const DashboardVoluntario = () => {
         urbanas.`,
     },
     {
+      id: 2,
       titulo: "Limpeza de Praias",
       data: `${formatDate(randomDate1)} a ${formatDate(randomDate2)}`,
       logo: Project2,
@@ -69,18 +71,25 @@ pelo aprendizado.`,
 
   return (
     <div className="bg-black min-h-screen p-8">
-      <div className="grid grid-cols-[6fr_1fr]">
+      <div className="grid grid-cols-1 lg:grid-cols-[6fr_1fr]">
         <div className="flex items-center flex-col gap-12">
-          <SearchBar />
-          <ProjetosRecomendados projetos={projetos} />
+          <div className="flex flex-col lg:flex-row justify-around w-full lg:w-[80%] items-center">
+            <h1 className="font-bold text-5xl text-white mb-4 lg:mb-0">Meus Projetos</h1>
+            <button 
+            onClick={() => navigate("/NewProject")}
+            className="relative w-full lg:w-[30%] text-center font-bold h-14 gap-4 items-center p-2 px-12 rounded-lg bg-black border border-[#2F2E2E] flex justify-center text-white">
+              <img src={Plus} alt="new project" className="h-8 absolute left-8" />
+              Novo projeto
+            </button>
+          </div>
+          <ProjetosCriados projetos={projetos} />
         </div>
-        <div className="h-auto">
-        <User isDash={isDash}
-        isVoluntario={isVoluntario} />
-      </div>
+        <div className="h-auto mt-8 lg:mt-0">
+          <User isDash={isDash} />
+        </div>
       </div>
     </div>
   );
 };
 
-export default DashboardVoluntario;
+export default DashboardONG;

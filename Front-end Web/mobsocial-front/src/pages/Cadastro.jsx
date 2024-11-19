@@ -18,7 +18,7 @@ const Cadastro = () => {
   };
 
   return (
-    <div className="h-[100vh] font-bold text-[#A3A3A3] w-full flex flex-col gap-8 items-center justify-center bg-black overflow-scroll">
+    <div className="h-[100vh] font-bold text-[#A3A3A3] w-full flex flex-col gap-8 items-center justify-center bg-black overflow-hidden">
       <div className="border-[1px] border-[#A3A3A3] flex justify-center rounded-lg h-auto w-[30%]">
         <div className="flex flex-col w-[75%] items-center mt-12">
           <img

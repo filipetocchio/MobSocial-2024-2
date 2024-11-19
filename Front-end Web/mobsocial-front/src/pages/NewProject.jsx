@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import Input from "../components/cadastro/Input";
 import { FormControl } from "@mui/material";
 import Vagas from "../components/novo-projeto/vagas";
+import Plus from "../assets/plus.svg"
 
 const NewProject = () => {
   const [titulo, setTitulo] = useState("");
@@ -11,7 +12,12 @@ const NewProject = () => {
 
   return (
     <div className="bg-black min-h-screen">
-      <div className="flex border-2 flex-col p-32 px-72 items-center gap-8">
+      <div className="flex border-2 flex-col p-24 items-center gap-8">
+      <div 
+            className="relative w-full text-center font-bold h-14 gap-4 items-center p-2 px-12 rounded-lg bg-black border border-[#2F2E2E] flex justify-center text-white">
+              <img src={Plus} alt="new project" className="h-8 absolute left-8" />
+              Novo projeto
+            </div>
         <FormControl style={{ width: "100%" }}>
           <div className="flex flex-col gap-8 ">
             <Input
