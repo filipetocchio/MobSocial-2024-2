@@ -1,107 +1,125 @@
-import React, { useState } from "react";
-import { FormControl } from "@mui/material";
-import Input from "./Input";
+import React, { useState } from 'react';
+import { FormControl, Button } from '@mui/material';
+import Input from './Input';
+import { toast, ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import CadastrarService from '../../services/cadastro';
 
 const Voluntario = () => {
-  const [focusedInput, setFocusedInput] = useState(null);
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
   const [emailError, setEmailError] = useState(false);
   const [passwordError, setPasswordError] = useState(false);
-  const [name, setName] = useState("");
   const [nameError, setNameError] = useState(false);
-  const [passwordConfirm, setPasswordConfirm] = useState("");
   const [passwordConfirmError, setPasswordConfirmError] = useState(false);
 
-  const handleLogin = () => {
+  const [formData, setFormData] = useState({
+    username: "",
+    email: "",
+    password: "",
+  });
+
+  const handleCadastro = async (e) => {
+    e.preventDefault();
     let hasError = false;
-    if (!email) {
+
+    if (!formData.email) {
       setEmailError(true);
       hasError = true;
     } else {
       setEmailError(false);
     }
 
-    if (!password) {
+    if (!formData.password) {
       setPasswordError(true);
       hasError = true;
     } else {
       setPasswordError(false);
     }
 
-    if (!name) {
+    if (!formData.username) {
       setNameError(true);
       hasError = true;
     } else {
       setNameError(false);
     }
 
-    if (password !== passwordConfirm || !passwordConfirm) {
-      setPasswordConfirmError(true);
-      hasError = true;
-    } else {
-      setPasswordConfirmError(false);
-    }
+    // if (formData.password !== formData.password_confirmation || !formData.password_confirmation) {
+    //   setPasswordConfirmError(true);
+    //   hasError = true;
+    // } else {
+    //   setPasswordConfirmError(false);
+    // }
 
     if (!hasError) {
-      // ...existing code...
+      try {
+        await CadastrarService(formData);
+        toast.success("Voluntário cadastrado com sucesso!");
+      } catch (error) {
+        // Error handling is already done in CadastrarService
+      }
     }
   };
 
   return (
     <div>
-      <FormControl className="flex gap-8 w-full items-center">
-        <Input
-          id="voluntario-nome"
-          type="text"
-          value={name}
-          onChange={(e) => setName(e.target.value)}
-          placeholder="Nome completo"
-          error={nameError}
-          errorMessage="Por favor, insira um nome."
-          focusedInput={focusedInput}
-          setFocusedInput={setFocusedInput}
-        />
-        <Input
-          id="voluntario-email"
-          type="email"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-          placeholder="E-mail"
-          error={emailError}
-          errorMessage="Por favor, insira um email."
-          focusedInput={focusedInput}
-          setFocusedInput={setFocusedInput}
-        />
-        <Input
-          id="voluntario-senha"
-          type="password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-          placeholder="Senha"
-          error={passwordError}
-          errorMessage="Por favor, insira uma senha."
-          focusedInput={focusedInput}
-          setFocusedInput={setFocusedInput}
-        />
-        <Input
-          id="voluntario-confirmar-senha"
-          type="password"
-          value={passwordConfirm}
-          onChange={(e) => setPasswordConfirm(e.target.value)}
-          placeholder="Confirmar senha"
-          error={passwordConfirmError}
-          errorMessage="As senhas não são iguais."
-          focusedInput={focusedInput}
-          setFocusedInput={setFocusedInput}
-        />
-        <button
-          onClick={handleLogin}
-          className="bg-[#023666] border-2 text-xl border-[#A3A3A3] rounded-lg w-[75%] h-14 mb-8"
-        >
-          CADASTRAR
-        </button>
-      </FormControl>
+      <ToastContainer />
+      <form onSubmit={handleCadastro}>
+        <FormControl className="flex gap-8 w-full items-center">
+          <Input
+            id="voluntario-nome"
+            type="text"
+            name="username"
+            value={formData.username}
+            onChange={() => {
+              setFormData({ ...formData, username: event.target.value });
+            }}
+            placeholder="Nome completo"
+            error={nameError}
+            aria-describedby="voluntario-nome-error"
+            sx={{color: 'white'}}
+          />
+          {nameError && <span id="voluntario-nome-error">Por favor, insira um nome.</span>}
+          
+          <Input
+            id="voluntario-email"
+            type="email"
+            name="email"
+            value={formData.email}
+            onChange={() => setFormData({ ...formData, email: event.target.value })}
+            placeholder="E-mail"
+            error={emailError}
+            aria-describedby="voluntario-email-error"
+          />
+          {emailError && <span id="voluntario-email-error">Por favor, insira um email.</span>}
+          
+          <Input
+            id="voluntario-senha"
+            type="password"
+            name="password"
+            value={formData.password}
+            onChange={() => setFormData({ ...formData, password: event.target.value })}
+            placeholder="Senha"
+            error={passwordError}
+            aria-describedby="voluntario-senha-error"
+          />
+          {passwordError && <span id="voluntario-senha-error">Por favor, insira uma senha.</span>}
+          
+          {/* <Input
+            id="voluntario-confirmar-senha"
+            type="password"
+            name="password_confirmation"
+            value={formData.password_confirmation}
+            onChange={() => setFormData({ ...formData, password_confirmation: event.target.value })}
+            placeholder="Confirmar senha"
+            error={passwordConfirmError}
+            aria-describedby="voluntario-confirmar-senha-error"
+          />
+          {passwordConfirmError && <span id="voluntario-confirmar-senha-error">As senhas não coincidem.</span>} */}
+          
+          <Button type="submit" variant="contained" color="primary">
+            Cadastrar
+          </Button>
+        </FormControl>
+      </form>
     </div>
   );
 };

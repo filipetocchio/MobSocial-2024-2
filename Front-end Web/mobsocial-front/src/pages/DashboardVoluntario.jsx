@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import SearchBar from "../components/SearchBar";
-import User from "../components/dashboardVoluntario/user";
-import ProjetosRecomendados from "../components/dashboardVoluntario/projetosRecomendados";
+import User from "../components/dashboardVoluntario/User";
+import ProjetosRecomendados from "../components/dashboardVoluntario/ProjetosRecomendados";
 import FT from "../assets/FT.png"
 import FT2 from "../assets/FT-2.png";
 import Project1 from "../assets/Project1.svg";

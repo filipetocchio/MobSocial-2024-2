@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import SearchBar from "../components/SearchBar";
-import User from "../components/dashboardVoluntario/user";
+import User from "../components/dashboardVoluntario/User";
 import ProjetosCriados from "../components/dashboardONG/ProjetosCriados";
 import FT from "../assets/FT.png"
 import FT2 from "../assets/FT-2.png";

@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import LogoOng from "../../assets/LogoOng.png";
+import LogoOng from "../../assets/logoONG.png";
 
 const perfilCard = () => {
   const [buttonState, setButtonsState] = useState(false)

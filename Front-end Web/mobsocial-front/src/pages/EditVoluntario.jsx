@@ -3,7 +3,7 @@ import { useParams } from "react-router-dom"; // Import useParams
 import { FormControl, InputLabel } from "@mui/material";
 import Input from "../components/cadastro/Input";
 import { UserPhotoContext, UserPhotoProvider } from "../context/UserPhotoContext"; // Updated import path
-import User from "../components/dashboardVoluntario/user";
+import User from "../components/dashboardVoluntario/User";
 import EditarFoto from "../components/Voluntario/EditarFoto"; // Import EditarFoto component
 import editVoluntario from '../services/editVoluntario'; // Import the service function
 

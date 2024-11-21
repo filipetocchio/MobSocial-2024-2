@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from "react";
 import EditarFoto from "../components/Voluntario/EditarFoto";
 import Logo from "../assets/LogoAnimal.svg"
-import ProjetosRecomendados from "../components/dashboardVoluntario/projetosRecomendados";
+import ProjetosRecomendados from "../components/dashboardVoluntario/ProjetosRecomendados";
 import Cachorrinho from "../assets/Cachorrinho.png"
-import User from "../components/dashboardVoluntario/user";
+import User from "../components/dashboardVoluntario/User";
 
 const PerfilVoluntario = () => {
   const [isProjeto, setIsProjeto] = useState(false);
