@@ -124,3 +124,35 @@ model TbContato {
   updatedAt  DateTime  @updatedAt // update date
   excludedAt DateTime? // deletion date
 }
+
+model TbProjeto {
+  id          Int     @id @default(autoincrement())
+  nome        String
+  descricao   String
+  data        String
+  hora        String
+  local       String
+  numerVagas  Int
+
+  hashimg     String  
+
+  // Campos de log para controle de histórico
+  openedat       DateTime  @default(now())
+  closedAt       DateTime?
+  createdAt      DateTime  @default(now())
+  updatedAt      DateTime  @updatedAt
+  excludedAt     DateTime?
+}
+
+model TbNewsletter {
+  id        Int     @id @default(autoincrement())
+  titulo    String
+  conteudo  String
+
+  // Campos de log para controle de histórico
+  openedat       DateTime  @default(now())
+  closedAt       DateTime?
+  createdAt      DateTime  @default(now())
+  updatedAt      DateTime  @updatedAt
+  excludedAt     DateTime?
+}

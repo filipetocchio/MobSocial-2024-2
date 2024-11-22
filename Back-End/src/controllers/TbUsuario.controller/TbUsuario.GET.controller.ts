@@ -1,6 +1,6 @@
 import { prisma } from '../../utils/prisma';
 import { Request, Response } from "express";
-import { RouteResponse } from "../../interfaces/interfaces";
+import { RouteResponse } from "../../utils/interfaces/interfaces";
 import jwt from "jsonwebtoken";
 import dotenv from "dotenv";
 

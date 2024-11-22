@@ -1,6 +1,6 @@
 import { prisma } from '../../utils/prisma';
 import { Request, Response } from "express";
-import { AuthRouteResponse, RouteResponse } from "../../interfaces/interfaces";
+import { AuthRouteResponse, RouteResponse } from "../../utils/interfaces/interfaces";
 import { ZodError } from "zod";
 import jwt from "jsonwebtoken";
 import bcrypt from "bcrypt";
