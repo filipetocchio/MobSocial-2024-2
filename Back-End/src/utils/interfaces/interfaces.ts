@@ -9,6 +9,6 @@ export interface RouteResponse<T> {
 }
 export interface AuthRouteResponse {
   id: number;
-  username: string;
+  email: string;
   accessToken: string;
 }

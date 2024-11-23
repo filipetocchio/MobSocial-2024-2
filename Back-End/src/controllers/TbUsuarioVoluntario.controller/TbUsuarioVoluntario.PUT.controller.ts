@@ -1,7 +1,7 @@
 import { prisma } from '../../utils/prisma';
 import { Request, Response } from "express";
 
-async function putTbUsuario(req: Request, res: Response) {
+async function putTbUsuarioVoluntario(req: Request, res: Response) {
     const { id } = req.params;
     const {
         email,
@@ -9,7 +9,7 @@ async function putTbUsuario(req: Request, res: Response) {
     } = req.body;
 
     try {
-        const usuarioAtualizada = await prisma.tbUsuario.update({
+        const usuarioAtualizada = await prisma.tbUsuarioVoluntario.update({
             where: { id: Number(id) },
             data: {
               email,
@@ -27,4 +27,4 @@ async function putTbUsuario(req: Request, res: Response) {
     }
 }
 
-export { putTbUsuario };
+export { putTbUsuarioVoluntario };

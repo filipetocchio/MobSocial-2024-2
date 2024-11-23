@@ -6,19 +6,19 @@ import dotenv from "dotenv";
 
 dotenv.config();
 
-async function getTbUsuario(req: Request, res: Response) {
+async function getTbUsuarioONG(req: Request, res: Response) {
   try {
-    const usuarios = await prisma.tbUsuario.findMany({});
+    const usuarios = await prisma.tbUsuarioONG.findMany({});
     res.status(200).json(usuarios);
   } catch (error) {
     res.status(500).send("Error retrieving usuarios: " + error.message);
   }
 }
 
-async function getByIDTbUsuario(req: Request, res: Response) {
+async function getByIDTbUsuarioONG(req: Request, res: Response) {
   const { id } = req.params;
   try {
-    const usuario = await prisma.tbUsuario.findUnique({
+    const usuario = await prisma.tbUsuarioONG.findUnique({
       where: {
         id: Number(id),
       },
@@ -33,7 +33,7 @@ async function getByIDTbUsuario(req: Request, res: Response) {
   }
 }
 
-const getLogoutTbUsuario = async (req: Request, res: Response) => {
+const getLogoutTbUsuarioONG = async (req: Request, res: Response) => {
   const cookies = req.cookies;
 
   const response: RouteResponse<null> = {
@@ -50,7 +50,7 @@ const getLogoutTbUsuario = async (req: Request, res: Response) => {
 
   const refreshToken = cookies.jwt;
 
-  await prisma.tbUsuario.update({
+  await prisma.tbUsuarioONG.update({
     where: { refreshToken: refreshToken },
     data: { refreshToken: "" }
   });
@@ -60,7 +60,7 @@ const getLogoutTbUsuario = async (req: Request, res: Response) => {
   res.status(response.code).json(response);
 };
 
-const getRefreshTokenTbUsuario = async (req: Request, res: Response) => {
+const getRefreshTokenTbUsuarioONG = async (req: Request, res: Response) => {
   try {
     const userId = parseInt(req.params.id);
     if (isNaN(userId)) {
@@ -73,34 +73,34 @@ const getRefreshTokenTbUsuario = async (req: Request, res: Response) => {
       });
     }
 
-    const TbUsuario = await prisma.tbUsuario.findUnique({
+    const TbUsuarioONG = await prisma.tbUsuarioONG.findUnique({
       where: {
         id: userId,
       },
     });
 
-    if (!TbUsuario) {
+    if (!TbUsuarioONG) {
       return res.status(404).json({
         code: 404,
         success: false,
-        error: "TbUsuario not found.",
+        error: "TbUsuarioONG not found.",
         message: null,
         data: null
       });
     }
 
-    if (!TbUsuario.refreshToken) {
+    if (!TbUsuarioONG.refreshToken) {
       return res.status(404).json({
         code: 404,
         success: false,
-        error: "TbUsuario does not have a refresh token.",
+        error: "TbUsuarioONG does not have a refresh token.",
         message: null,
         data: null
       });
     }
 
     const generateAccessToken = () => {
-      return jwt.sign({ userId: TbUsuario.id, username: TbUsuario.username }, process.env.ACCESS_TOKEN_SECRET, {
+      return jwt.sign({ userId: TbUsuarioONG.id, username: TbUsuarioONG.username }, process.env.ACCESS_TOKEN_SECRET, {
         expiresIn: '6h'
       });
     };
@@ -113,8 +113,8 @@ const getRefreshTokenTbUsuario = async (req: Request, res: Response) => {
       error: null,
       message: "Access token generated successfully.",
       data: {
-        id: TbUsuario.id,
-        username: TbUsuario.username,
+        id: TbUsuarioONG.id,
+        username: TbUsuarioONG.username,
         accessToken
       }
     });
@@ -131,4 +131,4 @@ const getRefreshTokenTbUsuario = async (req: Request, res: Response) => {
   }
 };
 
-export { getTbUsuario, getByIDTbUsuario, getLogoutTbUsuario, getRefreshTokenTbUsuario };
+export { getTbUsuarioONG, getByIDTbUsuarioONG, getLogoutTbUsuarioONG, getRefreshTokenTbUsuarioONG };

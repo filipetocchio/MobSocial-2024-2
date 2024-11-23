@@ -1,12 +1,12 @@
 import { prisma } from '../../utils/prisma';
 import { Request, Response } from "express";
 
-async function patchTbUsuario(req: Request, res: Response) {
+async function patchTbUsuarioONG(req: Request, res: Response) {
   const { id } = req.params;
   const updateData = req.body;
 
   try {
-    const updatedUsuario = await prisma.tbUsuario.update({
+    const updatedUsuario = await prisma.tbUsuarioONG.update({
       where: { id: Number(id) },
       data: updateData,
     });
@@ -18,4 +18,4 @@ async function patchTbUsuario(req: Request, res: Response) {
   }
 }
 
-export { patchTbUsuario };
+export { patchTbUsuarioONG };

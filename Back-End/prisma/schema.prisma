@@ -30,7 +30,7 @@ model TbVoluntario {
   // relationship
   TbEndereco TbEndereco[]
   TbContato  TbContato[]
-  TbUsuario  TbUsuario[]
+  TbUsuarioVoluntario  TbUsuarioVoluntario[]
 
   // log
   openedat   DateTime  @default(now()) // opening date
@@ -53,7 +53,7 @@ model TbONG {
   // relationship
   TbEndereco TbEndereco[]
   TbContato  TbContato[]
-  TbUsuario  TbUsuario[]
+  TbUsuarioONG  TbUsuarioONG[]
 
   // log
   openedat   DateTime  @default(now()) // opening date
@@ -63,16 +63,37 @@ model TbONG {
   excludedAt DateTime? // deletion date
 }
 
-model TbUsuario {
+model TbUsuarioVoluntario {
   id           Int     @id @default(autoincrement())
   email        String  @unique
   username     String  @unique
   password     String
   refreshToken String? @unique
+  isVoluntario Boolean  @default(true)
 
   // relationship
   FkIdTbVoluntario Int?
   TbVoluntario     TbVoluntario? @relation(fields: [FkIdTbVoluntario], references: [id])
+
+  // log
+  openedat   DateTime  @default(now()) // opening date
+  closedAt   DateTime? // closing date
+  createdAt  DateTime  @default(now()) // creation date
+  updatedAt  DateTime  @updatedAt // update date
+  excludedAt DateTime? // deletion date
+}
+
+model TbUsuarioONG {
+  id           Int     @id @default(autoincrement())
+  email        String  @unique
+  username     String  @unique
+  password     String
+  refreshToken String? @unique
+  isOng Boolean  @default(true)
+  cnpj         String  @unique
+  numeroDeIndentificacaoDaOng String @unique
+
+  // relationship
   FkIdTbONG        Int?
   TbONG            TbONG?        @relation(fields: [FkIdTbONG], references: [id])
 

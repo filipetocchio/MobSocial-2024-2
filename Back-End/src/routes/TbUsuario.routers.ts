@@ -14,7 +14,7 @@ import { deleteByIDTbUsuario } from "../controllers/TbUsuario.controller/TbUsuar
 
 export const TbUsuarioRouter = express.Router();
 export const TbUsuarioLoginRouter = express.Router();
-export const tbUsuariLogoutRouter = express.Router();
+export const tbUsuarioLogoutRouter = express.Router();
 export const TbUsuarioRefreshToneRouter = express.Router();
 
 TbUsuarioRouter.post("/", postTbUsuario);
@@ -26,5 +26,5 @@ TbUsuarioRouter.delete("/", deleteTbUsuario);
 TbUsuarioRouter.delete("/:id", deleteByIDTbUsuario);
 
 TbUsuarioLoginRouter.post("/", postLoginTbUsuario);
-tbUsuariLogoutRouter.get("/", getLogoutTbUsuario);
+tbUsuarioLogoutRouter.get("/", getLogoutTbUsuario);
 TbUsuarioRefreshToneRouter.get("/:id", getRefreshTokenTbUsuario);

@@ -8,11 +8,11 @@ import dotenv from "dotenv";
 
 dotenv.config();
 
-async function postTbUsuario(req: Request, res: Response) {
+async function postTbUsuarioVoluntario(req: Request, res: Response) {
   try {
     const { username, password, email } = req.body;
 
-    const duplicate = await prisma.tbUsuario.findFirst({
+    const duplicate = await prisma.tbUsuarioVoluntario.findFirst({
       where: { OR: [{ username: username }, { email: email }] },
     });
     if (duplicate) {
@@ -71,12 +71,13 @@ async function postTbUsuario(req: Request, res: Response) {
       expiresIn: "1d",
     });
 
-    const user = await prisma.tbUsuario.create({
+    const user = await prisma.tbUsuarioVoluntario.create({
       data: {
         email: email,
         username: username,
         password: hashedPassword,
         refreshToken: refreshToken,
+        isVoluntario: true,
       },
     });
 
@@ -96,7 +97,7 @@ async function postTbUsuario(req: Request, res: Response) {
       error: null,
       data: {
         accessToken: accessToken,
-        username: user.username,
+        email: user.username,
         id: user.id,
       },
     };
@@ -129,27 +130,27 @@ async function postTbUsuario(req: Request, res: Response) {
   }
 }
 
-const postLoginTbUsuario = async (req: Request, res: Response) => {
+const postLoginTbUsuarioVoluntario = async (req: Request, res: Response) => {
   try {
-    const { username, password } = req.body;
+    const { email, password } = req.body;
 
-    if (!username) {
-      return res.status(422).json({ msg: 'username is required!' });
+    if (!email) {
+      return res.status(422).json({ msg: 'email is required!' });
     }
 
     if (!password) {
       return res.status(422).json({ msg: 'Password is required!' });
     }
 
-    const foundUser = await prisma.tbUsuario.findFirst({ where: { username: username } });
+    const foundUser = await prisma.tbUsuarioVoluntario.findFirst({ where: { email: email } });
 
     if (!foundUser) {
       const response: RouteResponse<null> = {
         code: 401,
         data: null,
         success: false,
-        error: "No user found with this username.",
-        message: "No user found with this username.",
+        error: "No user found with this email.",
+        message: "No user found with this email.",
       };
       return res.status(response.code).json(response);
     }
@@ -157,15 +158,15 @@ const postLoginTbUsuario = async (req: Request, res: Response) => {
     const match = await bcrypt.compare(password, foundUser.password);
 
     if (match) {
-      const accessToken = jwt.sign({ UserInfo: { username: foundUser.username } }, process.env.ACCESS_TOKEN_SECRET, {
+      const accessToken = jwt.sign({ UserInfo: { email: foundUser.email } }, process.env.ACCESS_TOKEN_SECRET, {
         expiresIn: "6h",
       });
 
-      const refreshToken = jwt.sign({ username: foundUser.username }, process.env.REFRESH_TOKEN_SECRET, {
+      const refreshToken = jwt.sign({ email: foundUser.email }, process.env.REFRESH_TOKEN_SECRET, {
         expiresIn: "1d",
       });
 
-      await prisma.tbUsuario.update({ where: { id: foundUser.id }, data: { refreshToken: refreshToken } });
+      await prisma.tbUsuarioVoluntario.update({ where: { id: foundUser.id }, data: { refreshToken: refreshToken } });
 
       res.header("Access-Control-Allow-Credentials: true");
       res.header("Access-Control-Allow-Origin", "*");
@@ -182,10 +183,10 @@ const postLoginTbUsuario = async (req: Request, res: Response) => {
         code: 200,
         success: true,
         error: null,
-        message: `User ${username} successfully logged in`,
+        message: `User ${email} successfully logged in`,
         data: {
           id: foundUser.id,
-          username: foundUser.username,
+          email: foundUser.email,
           accessToken: accessToken,
         },
       };
@@ -217,4 +218,4 @@ const postLoginTbUsuario = async (req: Request, res: Response) => {
   }
 };
 
-export { postTbUsuario, postLoginTbUsuario };
+export { postTbUsuarioVoluntario, postLoginTbUsuarioVoluntario };
