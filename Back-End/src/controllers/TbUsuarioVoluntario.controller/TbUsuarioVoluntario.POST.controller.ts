@@ -16,53 +16,27 @@ async function postTbUsuarioVoluntario(req: Request, res: Response) {
       where: { OR: [{ username: username }, { email: email }] },
     });
     if (duplicate) {
-      const response: RouteResponse<null> = {
-        code: 409,
-        data: null,
+      return res.status(409).json({
         success: false,
         error: "This username or email is already in use.",
-        message: "This username or email is already in use.",
-      };
-      res.status(response.code).json(response);
-      return;
+      });
     }
-    
-    if (username.length < 1) {
-      const response: RouteResponse<null> = {
-      code: 400,
-      data: null,
-      success: false,
-      error: "Username is a required field.",
-      message: "Username is a required field.",
-      };
-      res.status(response.code).json(response);
-      return;
-    }
-    if (username.length > 20) {
-      const response: RouteResponse<null> = {
-      code: 400,
-      data: null,
-      success: false,
-      error: "Username cannot exceed 20 characters.",
-      message: "Username cannot exceed 20 characters.",
-      };
-      res.status(response.code).json(response);
-      return;
+
+    if (username.length < 1 || username.length > 20) {
+      return res.status(400).json({
+        success: false,
+        error: "Username must be between 1 and 20 characters.",
+      });
     }
 
     if (password.length < 6) {
-      const response: RouteResponse<null> = {
-      code: 400,
-      data: null,
-      success: false,
-      error: "Password must be at least 6 characters.",
-      message: "Password must be at least 6 characters.",
-      };
-      res.status(response.code).json(response);
-      return;
+      return res.status(400).json({
+        success: false,
+        error: "Password must be at least 6 characters.",
+      });
     }
 
-    const hashedPassword: string = await bcrypt.hash(password, 10);
+    const hashedPassword = await bcrypt.hash(password, 10);
 
     const accessToken = jwt.sign({ UserInfo: { username: username } }, process.env.ACCESS_TOKEN_SECRET, {
       expiresIn: "6h",
@@ -81,54 +55,25 @@ async function postTbUsuarioVoluntario(req: Request, res: Response) {
       },
     });
 
-    res.cookie("jwt", refreshToken, {
-      domain: "http://localhost:4200",
-      path: "/",
-      httpOnly: true,
-      sameSite: "lax",
-      secure: true,
-      maxAge: 24 * 60 * 60 * 1000,
-    });
-
-    const response: RouteResponse<AuthRouteResponse> = {
+    return res.status(201).json({
       success: true,
-      message: `New user ${username} created.`,
-      code: 201,
-      error: null,
       data: {
-        accessToken: accessToken,
-        email: user.username,
         id: user.id,
+        email: user.email,
+        username: user.username,
+        accessToken: accessToken,
       },
-    };
-    
-    res
-      .cookie("jwt", refreshToken, {
-        httpOnly: true,
-        secure: true,
-        maxAge: 24 * 60 * 60 * 1000,
-      })
-      .status(response.code)
-      .json(response);
+    });
   } catch (error) {
+    console.error("Error:", error);
 
-    const response: RouteResponse<null> = {
-      code: 500,
-      data: null,
+    return res.status(500).json({
       success: false,
       error: "Internal server error.",
-      message: "Internal server error.",
-    };
-    if (error instanceof ZodError) {
-      response.code = 400;
-      response.error = error.errors[0].message;
-      response.message = error.errors[0].message;
-      res.status(response.code).json(response);
-      return;
-    }
-    res.status(response.code).json(response);
+    });
   }
 }
+
 
 const postLoginTbUsuarioVoluntario = async (req: Request, res: Response) => {
   try {

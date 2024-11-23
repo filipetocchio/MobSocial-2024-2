@@ -44,11 +44,11 @@ apiV1Router.use("/TbProjeto", TbProjetoRouter);
 apiV1Router.use("/TbNewsletter", TbNewsletterRouter);
 
 apiV1Router.use("/TbUsuarioONG", TbUsuarioONGRouter);
-apiV1Router.use("/login", TbUsuarioONGLoginRouter);
-apiV1Router.use("/logout", tbUsuarioONGLogoutRouter);
-apiV1Router.use("/refresh", TbUsuarioONGRefreshToneRouter);
+apiV1Router.use("/loginONG", TbUsuarioONGLoginRouter);
+apiV1Router.use("/logoutONG", tbUsuarioONGLogoutRouter);
+apiV1Router.use("/refreshONG", TbUsuarioONGRefreshToneRouter);
 
 apiV1Router.use("/TbUsuarioVoluntario", TbUsuarioVoluntarioRouter);
-apiV1Router.use("/login", TbUsuarioVoluntarioLoginRouter);
-apiV1Router.use("/logout", tbUsuarioVoluntarioLogoutRouter);
-apiV1Router.use("/refresh", TbUsuarioVoluntarioRefreshToneRouter);
+apiV1Router.use("/loginVoluntario", TbUsuarioVoluntarioLoginRouter);
+apiV1Router.use("/logoutVoluntario", tbUsuarioVoluntarioLogoutRouter);
+apiV1Router.use("/refreshVoluntario", TbUsuarioVoluntarioRefreshToneRouter);

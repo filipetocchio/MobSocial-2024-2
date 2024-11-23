@@ -23,10 +23,10 @@ model TbVoluntario {
   id              Int     @id @default(autoincrement())
   nome            String
   cpf             String  @unique
-  disponibilidade String // ex: days of the week and hours
-  areasInteresse  String // list of areas of interest, stored as a comma-separated string
-  experiencia     String? // brief description of previous experience
-
+  disponibilidade String
+  areasInteresse  String
+  experiencia     String?
+  
   // relationship
   TbEndereco TbEndereco[]
   TbContato  TbContato[]
@@ -45,10 +45,10 @@ model TbONG {
   cnpj         String  @unique
   razaoSocial  String
   nomeFantasia String
-  site         String? // optional
-  descricao    String? // brief description of the NGO
-  areasAtuacao String // ex: education, environment, health
-  responsavel  String // name of the responsible person
+  site         String?
+  descricao    String?
+  areasAtuacao String
+  responsavel  String
 
   // relationship
   TbEndereco TbEndereco[]
@@ -157,7 +157,7 @@ model TbProjeto {
 
   hashimg     String  
 
-  // Campos de log para controle de histórico
+  // log
   openedat       DateTime  @default(now())
   closedAt       DateTime?
   createdAt      DateTime  @default(now())
@@ -170,7 +170,7 @@ model TbNewsletter {
   titulo    String
   conteudo  String
 
-  // Campos de log para controle de histórico
+  // log
   openedat       DateTime  @default(now())
   closedAt       DateTime?
   createdAt      DateTime  @default(now())
