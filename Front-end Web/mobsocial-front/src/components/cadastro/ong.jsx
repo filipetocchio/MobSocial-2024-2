@@ -12,6 +12,11 @@ const Ong = () => {
   const [confirmarSenha, setConfirmarSenha] = useState("");
   const [errors, setErrors] = useState({});
 
+  const [formData, setFormData] = useState({
+    cnpj: cnpj,
+    nomeFantasia: nome
+  });
+
   const handleSubmit = () => {
     const newErrors = {};
     if (!nome) newErrors.nome = "Nome é obrigatório";
@@ -101,7 +106,7 @@ const Ong = () => {
           className="bg-[#023666] border-2 text-xl border-[#A3A3A3] rounded-lg w-[75%] h-14 mb-8"
           onClick={handleSubmit}
         >
-          ENTRAR
+          Cadastrar
         </button>
       </FormControl>
     </div>

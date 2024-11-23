@@ -21,26 +21,26 @@ const LoginService = async (data) => {
     console.log(result);
     console.log("Data:", data);
 
-    // if (result) {
-    //   localStorage.setItem("token", result.usuario.token);
-    //   console.log("Token armazenado", result.usuario.token);
-    //   localStorage.setItem("name", result.usuario.name);
-    //   toast({
-    //     position: "top-right",
-    //     title: result.message,
-    //     status: "success",
-    //     duration: 5000,
-    //     isClosable: true,
-    //   });
-    //   router.push("/extensao/formulario");
-    // } else {
-    //   toast({
-    //     title: "Usuário ou senha inválidos",
-    //     status: "error",
-    //     duration: 9000,
-    //     isClosable: true,
-    //   });
-    // }
+    if (result) {
+      localStorage.setItem("token", result.data.accessToken);
+      console.log("Token armazenado", result.data.accessToken);
+      localStorage.setItem("name", result.username);
+      toast({
+        position: "top-right",
+        title: result.message,
+        status: "success",
+        duration: 5000,
+        isClosable: true,
+      });
+      router.push("/");
+    } else {
+      toast({
+        title: "Usuário ou senha inválidos",
+        status: "error",
+        duration: 9000,
+        isClosable: true,
+      });
+    }
   } catch (error) {
     console.error("Erro na requisição", error);
   }

@@ -1,15 +1,19 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import { FormControl, Button } from '@mui/material';
 import Input from './Input';
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import CadastrarService from '../../services/cadastro';
+import { UserTypeContext } from '../../context/UserTypeContext';
 
 const Voluntario = () => {
   const [emailError, setEmailError] = useState(false);
   const [passwordError, setPasswordError] = useState(false);
   const [nameError, setNameError] = useState(false);
   const [passwordConfirmError, setPasswordConfirmError] = useState(false);
+  const { userType } = useContext(UserTypeContext);
+
+  console.log(userType)
 
   const [formData, setFormData] = useState({
     username: "",
@@ -51,7 +55,14 @@ const Voluntario = () => {
 
     if (!hasError) {
       try {
-        await CadastrarService(formData);
+        const result = await CadastrarService(formData);
+        if (result) {
+          localStorage.setItem("token", result.accessToken);
+          if (userType === "voluntario") {
+            return result.isOng = false;
+          }
+          return true
+        }
         toast.success("Voluntário cadastrado com sucesso!");
       } catch (error) {
         // Error handling is already done in CadastrarService
@@ -75,10 +86,10 @@ const Voluntario = () => {
             placeholder="Nome completo"
             error={nameError}
             aria-describedby="voluntario-nome-error"
-            sx={{color: 'white'}}
+            sx={{ color: 'white' }}
           />
           {nameError && <span id="voluntario-nome-error">Por favor, insira um nome.</span>}
-          
+
           <Input
             id="voluntario-email"
             type="email"
@@ -90,7 +101,7 @@ const Voluntario = () => {
             aria-describedby="voluntario-email-error"
           />
           {emailError && <span id="voluntario-email-error">Por favor, insira um email.</span>}
-          
+
           <Input
             id="voluntario-senha"
             type="password"
@@ -102,7 +113,7 @@ const Voluntario = () => {
             aria-describedby="voluntario-senha-error"
           />
           {passwordError && <span id="voluntario-senha-error">Por favor, insira uma senha.</span>}
-          
+
           {/* <Input
             id="voluntario-confirmar-senha"
             type="password"
@@ -114,10 +125,10 @@ const Voluntario = () => {
             aria-describedby="voluntario-confirmar-senha-error"
           />
           {passwordConfirmError && <span id="voluntario-confirmar-senha-error">As senhas não coincidem.</span>} */}
-          
-          <Button type="submit" variant="contained" color="primary">
+
+          <button className="bg-[#023666] border-2 text-xl border-[#A3A3A3] rounded-lg w-[75%] h-14 mb-8" type="submit">
             Cadastrar
-          </Button>
+          </button>
         </FormControl>
       </form>
     </div>

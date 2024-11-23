@@ -1,19 +1,29 @@
-import React, { useState } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import Logo from "../assets/Logo.jpg";
 import { FormControl, Input } from "@mui/material";
 import LoginService from "../services/login";
+import { UserTypeContext } from "../context/UserTypeContext";
 
 const Login = () => {
   const [email, setEmail] = useState("");
+  const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [emailError, setEmailError] = useState(false);
   const [passwordError, setPasswordError] = useState(false);
-  const [activateVoluntario, setActivateVoluntario] = useState(false);
-  const [activateOng, setActivateOng] = useState(false);
+  const [refreshToken, setRefreshToken] = useState("");
+  const { userType, setUserType } = useContext(UserTypeContext);
+
+  useEffect(() => {
+    const storedToken = localStorage.getItem("token");
+    if (storedToken) {
+      setRefreshToken(storedToken);
+    }
+  }, []);
+
 
   const handleLogin = async () => {
     let hasError = false;
-    if (!email) {
+    if (!username) {
       setEmailError(true);
       hasError = true;
     } else {
@@ -28,18 +38,22 @@ const Login = () => {
     }
 
     if (!hasError) {
-      await LoginService({ email, password });
+      await LoginService({ username , password, refreshToken })
+      if (refreshToken) {
+        localStorage.setItem("token", refreshToken);
+        setRefreshToken(refreshToken);
+        localStorage.setItem("name", username);
+
+        setUserType({
+          username: username,
+          isOng: result.isOng,
+          token: result.token,
+        });
+
+        // window.location.href = "/";
+        console.log(userType)
+      }
     }
-  };
-
-  const handleActivateVoluntario = () => {
-    setActivateVoluntario(true);
-    setActivateOng(false);
-  };
-
-  const handleActivateOng = () => {
-    setActivateOng(true);
-    setActivateVoluntario(false);
   };
 
   return (
@@ -73,11 +87,11 @@ const Login = () => {
                     emailError ? "border-red-500" : "border-[#A3A3A3]"
                   } rounded-lg w-[75%] h-12`}
                   error={emailError}
-                  type="email"
+                  type="text"
                   required
                   placeholder="E-mail"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
+                  value={username}
+                  onChange={(e) => setUsername(e.target.value)}
                 />
               </div>
 
