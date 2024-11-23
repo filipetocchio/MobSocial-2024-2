@@ -7,15 +7,13 @@ import FT2 from "../assets/FT-2.png";
 import Project1 from "../assets/Project1.svg";
 import Project2 from "../assets/Project2.svg";
 
-const DashboardVoluntario = () => {
+const DashboardVoluntario = (isVoluntario) => {
   const [isDash, setIsDash] = useState(false);
-  const [isVoluntario, setIsVoluntario] = useState(false);
 
 
   useEffect(() => {
     if (window.location.pathname === "/Dashboard-Voluntario") {
       setIsDash(true);
-      setIsVoluntario(true);
     }
   }, []);
  

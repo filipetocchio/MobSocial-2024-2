@@ -9,13 +9,11 @@ import PerfilVoluntario from "./pages/PerfilVoluntario";
 import { UserPhotoProvider } from "./context/UserPhotoContext";
 import DashboardONG from "./pages/dashboardONG";
 import PerfilONG from "./pages/perfilONG";
-import { UserTypeProvider } from './context/UserTypeContext';
 
 
 export function Router() {
   return (
     <UserPhotoProvider>
-      <UserTypeProvider>
       <Routes>
       <Route path="/" element={<Home />} />
         <Route path="/login" element={<Login />} />
@@ -27,7 +25,6 @@ export function Router() {
         <Route path="/PerfilVoluntario" element={<PerfilVoluntario />} />
         <Route path="/PerfilONG" element={<PerfilONG />} />
       </Routes>
-      </UserTypeProvider>
     </UserPhotoProvider>
   );
 }

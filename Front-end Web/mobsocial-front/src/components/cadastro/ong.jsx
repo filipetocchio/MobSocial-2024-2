@@ -1,6 +1,9 @@
 import React, { useState } from "react";
 import { FormControl } from "@mui/material";
 import Input from "./Input";
+import { CadastrarServiceONG } from "../../services/cadastro";
+import { toast, ToastContainer } from "react-toastify";
+import 'react-toastify/dist/ReactToastify.css';
 
 const Ong = () => {
   const [focusedInput, setFocusedInput] = useState(null);
@@ -12,12 +15,8 @@ const Ong = () => {
   const [confirmarSenha, setConfirmarSenha] = useState("");
   const [errors, setErrors] = useState({});
 
-  const [formData, setFormData] = useState({
-    cnpj: cnpj,
-    nomeFantasia: nome
-  });
-
-  const handleSubmit = () => {
+  const handleSubmit = async (e) => {
+    e.preventDefault();
     const newErrors = {};
     if (!nome) newErrors.nome = "Nome é obrigatório";
     if (!email) newErrors.email = "E-mail é obrigatório";
@@ -29,12 +28,31 @@ const Ong = () => {
     setErrors(newErrors);
 
     if (Object.keys(newErrors).length === 0) {
-      // Submit the form
+      const formData = {
+        username: nome,
+        password: senha,
+        email: email,
+        cnpj: cnpj,
+        numeroDeIndentificacaoDaOng: numeroIdentificacao,
+      };
+
+      try {
+        const result = await CadastrarServiceONG(formData);
+        if (result) {
+          localStorage.setItem("token", result.accessToken);
+          toast.success("Voluntário cadastrado com sucesso!");
+          result.data.isOng = true;
+          console.log(result);
+        }
+      } catch (error) {
+        console.error("Error during registration:", error);
+      }
     }
   };
 
   return (
     <div>
+      <ToastContainer />
       <FormControl className="gap-4 w-full items-center h-auto">
         <Input
           id="ong-nome"

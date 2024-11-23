@@ -2,7 +2,7 @@ import React, { useState, useEffect, useContext } from "react";
 import Logo from "../assets/Logo.jpg";
 import { FormControl, Input } from "@mui/material";
 import LoginService from "../services/login";
-import { UserTypeContext } from "../context/UserTypeContext";
+import { ToastContainer } from "react-toastify";
 
 const Login = () => {
   const [email, setEmail] = useState("");
@@ -11,7 +11,6 @@ const Login = () => {
   const [emailError, setEmailError] = useState(false);
   const [passwordError, setPasswordError] = useState(false);
   const [refreshToken, setRefreshToken] = useState("");
-  const { userType, setUserType } = useContext(UserTypeContext);
 
   useEffect(() => {
     const storedToken = localStorage.getItem("token");
@@ -20,10 +19,9 @@ const Login = () => {
     }
   }, []);
 
-
   const handleLogin = async () => {
     let hasError = false;
-    if (!username) {
+    if (!email) {
       setEmailError(true);
       hasError = true;
     } else {
@@ -38,26 +36,31 @@ const Login = () => {
     }
 
     if (!hasError) {
-      await LoginService({ username , password, refreshToken })
-      if (refreshToken) {
-        localStorage.setItem("token", refreshToken);
-        setRefreshToken(refreshToken);
-        localStorage.setItem("name", username);
-
-        setUserType({
-          username: username,
-          isOng: result.isOng,
-          token: result.token,
+      const login = {email: email, password: password};
+      try {
+        const response = await fetch('http://localhost:8001/api/v1/loginVoluntario', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify(login)
         });
 
-        // window.location.href = "/";
-        console.log(userType)
-      }
+        if (response) {
+          const data = await response.json();
+          console.log('hi')
+          window.localStorage.setItem("user", JSON.stringify(data));
+          console.log(JSON.parse(window.localStorage.getItem("user"))); // prints correctly here
+          console.log("Successful Login");
+          console.log(JSON.parse(window.localStorage.getItem("user"))); // prints null here
+        } 
+      } catch(e) {}
     }
   };
 
   return (
     <div className="h-[100vh] font-bold text-[#A3A3A3] w-full flex flex-col gap-12 items-center justify-center bg-black">
+            <ToastContainer />
       <div className="border-[1px] border-[#A3A3A3] rounded-lg h-auto w-[30%]">
         <div className="flex flex-col w-full items-center mt-12">
           <img
@@ -90,8 +93,8 @@ const Login = () => {
                   type="text"
                   required
                   placeholder="E-mail"
-                  value={username}
-                  onChange={(e) => setUsername(e.target.value)}
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
                 />
               </div>
 

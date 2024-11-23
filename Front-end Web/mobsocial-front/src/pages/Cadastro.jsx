@@ -2,24 +2,19 @@ import React, { useState, useContext } from "react";
 import Logo from "../assets/Logo.jpg";
 import Voluntario from "../components/cadastro/voluntario";
 import Ong from "../components/cadastro/ong";
-import { UserTypeContext } from "../context/UserTypeContext";
 
 const Cadastro = () => {
   const [activateVoluntario, setVoluntario] = useState(false);
   const [activateOng, setOng] = useState(false);
-  const { setUserType } = useContext(UserTypeContext);
 
 
   const handleChoice = (choice) => {
     if (choice === "voluntario") {
       setVoluntario(true);
       setOng(false);
-      setUserType("voluntario");
-      console.log(userType);
     } else if (choice === "ong") {
       setOng(true);
       setVoluntario(false);
-      setUserType("ong");
     }
   };
 

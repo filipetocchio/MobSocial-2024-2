@@ -3,17 +3,13 @@ import { FormControl, Button } from '@mui/material';
 import Input from './Input';
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import CadastrarService from '../../services/cadastro';
-import { UserTypeContext } from '../../context/UserTypeContext';
+import { CadastrarServiceVoluntario } from '../../services/cadastro';
 
 const Voluntario = () => {
   const [emailError, setEmailError] = useState(false);
   const [passwordError, setPasswordError] = useState(false);
   const [nameError, setNameError] = useState(false);
   const [passwordConfirmError, setPasswordConfirmError] = useState(false);
-  const { userType } = useContext(UserTypeContext);
-
-  console.log(userType)
 
   const [formData, setFormData] = useState({
     username: "",
@@ -55,17 +51,11 @@ const Voluntario = () => {
 
     if (!hasError) {
       try {
-        const result = await CadastrarService(formData);
+        const result = await CadastrarServiceVoluntario(formData);
         if (result) {
-          localStorage.setItem("token", result.accessToken);
-          if (userType === "voluntario") {
-            return result.isOng = false;
-          }
-          return true
-        }
         toast.success("Voluntário cadastrado com sucesso!");
+        }
       } catch (error) {
-        // Error handling is already done in CadastrarService
       }
     }
   };
