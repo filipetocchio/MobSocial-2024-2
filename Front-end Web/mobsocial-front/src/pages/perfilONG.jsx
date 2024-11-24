@@ -1,14 +1,15 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import EditarFoto from "../components/Voluntario/EditarFoto";
 import Logo from "../assets/LogoAnimal.svg";
 import ProjetosRecomendados from "../components/dashboardVoluntario/ProjetosRecomendados";
 import Cachorrinho from "../assets/Cachorrinho.png";
 import User from "../components/dashboardVoluntario/User";
+import { UserContext } from "../context/UserContext";
 import PerfilCard from "../components/dashboardONG/PerfilCard";
 
 const PerfilONG = () => {
   const [isPerfilOng, setIsPerfilOng] = useState(false);
-  const [isONG, setIsONG] = useState(false);
+  const {isOng} = useContext(UserContext);
   const [buttonsState, setButtonsState] = useState({
     projetos: false,
     newsletter: false,
@@ -26,7 +27,6 @@ const PerfilONG = () => {
   useEffect(() => {
     if (window.location.pathname === "/PerfilONG") {
       setIsPerfilOng(true);
-      setIsONG(true);
     }
   }, []);
 
@@ -156,7 +156,7 @@ proporcionando lares amorosos e responsáveis.`,
       </div>
 
       <div className="h-auto">
-        <User isPerfilOng={isPerfilOng} isONG={isONG} />
+        <User isPerfilOng={isPerfilOng} />
       </div>
     </div>
   );

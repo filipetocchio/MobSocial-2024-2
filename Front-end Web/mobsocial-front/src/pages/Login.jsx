@@ -1,8 +1,9 @@
 import React, { useState, useEffect, useContext } from "react";
 import Logo from "../assets/Logo.jpg";
 import { FormControl, Input } from "@mui/material";
-import LoginService from "../services/login";
+import { LoginService, LoginService2 } from "../services/login";
 import { ToastContainer } from "react-toastify";
+import axios from "axios";
 
 const Login = () => {
   const [email, setEmail] = useState("");
@@ -36,27 +37,28 @@ const Login = () => {
     }
 
     if (!hasError) {
-      const login = {email: email, password: password};
+      const login = { email: email, password: password };
       try {
-        const response = await fetch('http://localhost:8001/api/v1/loginVoluntario', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json'
-          },
-          body: JSON.stringify(login)
-        });
+        const response = await LoginService(login, refreshToken);
+        if (response.status !== 200) {
+          // Perform second request if the first one fails
+          const secondResponse = await LoginService2(login, refreshToken);
+          if (secondResponse.status === 200) {
+            console.log("Second request successful", secondResponse.data);
+            localStorage.setItem("user", JSON.stringify(secondResponse.data));
+          } else {
+            console.error("Second request failed", secondResponse.status);
+          }
+        }
+        window.location.href = "/";
 
-        if (response) {
-          const data = await response.json();
-          console.log('hi')
-          window.localStorage.setItem("user", JSON.stringify(data));
-          console.log(JSON.parse(window.localStorage.getItem("user"))); // prints correctly here
-          console.log("Successful Login");
-          console.log(JSON.parse(window.localStorage.getItem("user"))); // prints null here
-        } 
-      } catch(e) {}
+      } catch (e) {
+        console.error("Login failed", e);
+      }
     }
   };
+
+  console.log(localStorage.getItem("token"));
 
   return (
     <div className="h-[100vh] font-bold text-[#A3A3A3] w-full flex flex-col gap-12 items-center justify-center bg-black">

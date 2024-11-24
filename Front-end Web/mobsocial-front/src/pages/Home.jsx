@@ -1,33 +1,43 @@
-import React, { useEffect, useState } from 'react';
-import Header from '../components/header';
-import Projetos from '../components/home/projetos';
-import User from '../components/dashboardVoluntario/User';
-import { useNavigate } from 'react-router-dom';
-import getUserById from '../services/userService';
+import React, { useContext, useEffect, useState } from "react";
+import Header from "../components/header";
+import Projetos from "../components/home/projetos";
+import User from "../components/dashboardVoluntario/User";
+import { useNavigate } from "react-router-dom";
+import { getUserById, getUserByIdVoluntario } from "../services/userService";
+import { UserContext } from "../context/UserContext";
 
 const Home = () => {
-  const [userData, setUserData] = useState(window.localStorage.getItem('user') ? JSON.parse(window.localStorage.getItem('user')) : null);
+  const [userId, setUserId] = useState(window.localStorage.getItem("userId"));
+  const {isOng, setIsOng} = useContext(UserContext);
+  const [isHome, setIsHome] = useState(true);
+  const [userToken, setUserToken] = useState(
+    window.localStorage.getItem("token")
+      ? window.localStorage.getItem("token")
+      : null
+  );
   const navigate = useNavigate();
   const [data, setData] = useState(null);
 
-
   useEffect(() => {
-    if (userData) {
-        getUserById(userData.data.id, setData);
-        console.log("Useefect", data)
+    if (userId) {
+      if (isOng === "true") {
+        getUserById(userId, setData);
+      } else {
+        getUserByIdVoluntario(userId, setData);
+      }
     }
-}, [userData, navigate]);
+  }, [userId, isOng]);
+
+  console.log(isOng);
 
   return (
     <>
-      <Header />
-      {userData && 
-      <div className=' font-bold text-[#A3A3A3] w-full bg-black flex flex-row'>
-
+      <Header userToken={userToken} />
+      <div className="font-bold text-[#A3A3A3] w-full bg-black flex flex-row">
         <Projetos />
-        <User isVoluntario={data} isOng={userData.isOng} />
-      </div>}
-    </>
+        <User isOng={isOng} isHome={isHome} />
+      </div>
+    </> 
   );
 };
 
