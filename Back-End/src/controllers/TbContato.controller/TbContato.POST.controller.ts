@@ -2,14 +2,13 @@ import { prisma } from '../../utils/prisma';
 import { Request, Response } from "express";
 
 async function postTbContato(req: Request, res: Response) {
-  const { telefone, email, FkIdTbVoluntario } = req.body;
+  const { telefone, email } = req.body;
 
   try {
     const newContato = await prisma.tbContato.create({
       data: {
         telefone,
         email,
-        FkIdTbVoluntario,
       },
     });
     res.status(201).json({ message: "Contato created successfully", newContato });

@@ -12,56 +12,10 @@ datasource db {
 
 // temporary comment because sqlite does not support it, uncomment when switching to PostgreSQL.
 // enum role {
-//   STUDENT
-//   TEACHER
-//   MANAGEMENT
-//   ADMINISTRATIVE
+//   VOLUNTARIO
+//   ONG
 //   ADMIN
 // }
-
-model TbVoluntario {
-  id              Int     @id @default(autoincrement())
-  nome            String
-  cpf             String  @unique
-  disponibilidade String
-  areasInteresse  String
-  experiencia     String?
-  
-  // relationship
-  TbEndereco TbEndereco[]
-  TbContato  TbContato[]
-  TbUsuarioVoluntario  TbUsuarioVoluntario[]
-
-  // log
-  openedat   DateTime  @default(now()) // opening date
-  closedAt   DateTime? // closing date
-  createdAt  DateTime  @default(now()) // creation date
-  updatedAt  DateTime  @updatedAt // update date
-  excludedAt DateTime? // deletion date
-}
-
-model TbONG {
-  id           Int     @id @default(autoincrement())
-  cnpj         String  @unique
-  razaoSocial  String
-  nomeFantasia String
-  site         String?
-  descricao    String?
-  areasAtuacao String
-  responsavel  String
-
-  // relationship
-  TbEndereco TbEndereco[]
-  TbContato  TbContato[]
-  TbUsuarioONG  TbUsuarioONG[]
-
-  // log
-  openedat   DateTime  @default(now()) // opening date
-  closedAt   DateTime? // closing date
-  createdAt  DateTime  @default(now()) // creation date
-  updatedAt  DateTime  @updatedAt // update date
-  excludedAt DateTime? // deletion date
-}
 
 model TbUsuarioVoluntario {
   id           Int     @id @default(autoincrement())
@@ -69,11 +23,16 @@ model TbUsuarioVoluntario {
   username     String  @unique
   password     String
   refreshToken String? @unique
-  isVoluntario Boolean  @default(true)
+
+  nome            String
+  cpf             String  @unique
+  disponibilidade String
+  areasInteresse  String
+  experiencia     String?
 
   // relationship
-  FkIdTbVoluntario Int?
-  TbVoluntario     TbVoluntario? @relation(fields: [FkIdTbVoluntario], references: [id])
+  TbEndereco TbEndereco[]
+  TbContato  TbContato[]
 
   // log
   openedat   DateTime  @default(now()) // opening date
@@ -89,13 +48,19 @@ model TbUsuarioONG {
   username     String  @unique
   password     String
   refreshToken String? @unique
-  isOng Boolean  @default(true)
+
   cnpj         String  @unique
+  razaoSocial  String
+  nomeFantasia String
+  site         String?
+  descricao    String?
+  areasAtuacao String
+  responsavel  String
   numeroDeIndentificacaoDaOng String @unique
 
   // relationship
-  FkIdTbONG        Int?
-  TbONG            TbONG?        @relation(fields: [FkIdTbONG], references: [id])
+  TbEndereco TbEndereco[]
+  TbContato  TbContato[]
 
   // log
   openedat   DateTime  @default(now()) // opening date
@@ -107,17 +72,16 @@ model TbUsuarioONG {
 
 model TbEndereco {
   id Int @id @default(autoincrement())
-
   endereco String
   cidade   String
   estado   String
   cep      String
 
   // relationship
-  FkIdTbVoluntario Int?
-  TbVoluntario     TbVoluntario? @relation(fields: [FkIdTbVoluntario], references: [id])
-  FkIdTbONG        Int?
-  TbONG            TbONG?        @relation(fields: [FkIdTbONG], references: [id])
+  FkIdTbUsuarioVoluntario Int?
+  TbUsuarioVoluntario     TbUsuarioVoluntario? @relation(fields: [FkIdTbUsuarioVoluntario], references: [id])
+  FkIdTbUsuarioONG        Int?
+  TbUsuarioONG            TbUsuarioONG?        @relation(fields: [FkIdTbUsuarioONG], references: [id])
 
   // log
   openedat   DateTime  @default(now()) // opening date
@@ -133,10 +97,10 @@ model TbContato {
   email    String @unique
 
   // relationship
-  FkIdTbVoluntario Int?
-  TbVoluntario     TbVoluntario? @relation(fields: [FkIdTbVoluntario], references: [id])
-  FkIdTbONG        Int?
-  TbONG            TbONG?        @relation(fields: [FkIdTbONG], references: [id])
+  FkIdTbUsuarioVoluntario Int?
+  TbUsuarioVoluntario     TbUsuarioVoluntario? @relation(fields: [FkIdTbUsuarioVoluntario], references: [id])
+  FkIdTbUsuarioONG        Int?
+  TbUsuarioONG            TbUsuarioONG?        @relation(fields: [FkIdTbUsuarioONG], references: [id])
 
   // log
   openedat   DateTime  @default(now()) // opening date

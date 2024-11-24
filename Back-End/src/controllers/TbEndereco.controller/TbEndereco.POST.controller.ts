@@ -2,7 +2,7 @@ import { prisma } from '../../utils/prisma';
 import { Request, Response } from "express";
 
 async function postTbEndereco(req: Request, res: Response) {
-  const { endereco, cidade, estado, cep, FkIdTbVoluntario } = req.body;
+  const { endereco, cidade, estado, cep } = req.body;
 
   try {
     const newEndereco = await prisma.tbEndereco.create({
@@ -11,7 +11,6 @@ async function postTbEndereco(req: Request, res: Response) {
         cidade,
         estado,
         cep,
-        FkIdTbVoluntario,
       },
     });
     res.status(201).json({ message: "Endereco created successfully", newEndereco });

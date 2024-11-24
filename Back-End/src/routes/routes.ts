@@ -2,8 +2,6 @@ import express, { Router } from "express";
 
 import { TbContatoRouter } from "./TbContado.routers";
 import { TbEnderecoRouter } from "./TbEndereco.routers";
-import { TbONGRouter } from "./TbONG.routers";     
-import { TbVoluntarioRouter } from "./TbVoluntario.routers";
 import { TbProjetoRouter } from "./TbProjeto.routers";
 import { TbNewsletterRouter } from "./TbNewsletter.routers";
 
@@ -38,8 +36,6 @@ apiV1Router.use(cors({ ...corsOptions, credentials: true }));
 
 apiV1Router.use("/TbContato", TbContatoRouter);
 apiV1Router.use("/TbEndereco", TbEnderecoRouter);
-apiV1Router.use("/TbONG", TbONGRouter);
-apiV1Router.use("/TbVoluntario", TbVoluntarioRouter);
 apiV1Router.use("/TbProjeto", TbProjetoRouter);
 apiV1Router.use("/TbNewsletter", TbNewsletterRouter);
 

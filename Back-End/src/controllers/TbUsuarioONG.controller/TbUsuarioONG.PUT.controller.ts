@@ -6,14 +6,30 @@ async function putTbUsuarioONG(req: Request, res: Response) {
     const {
         email,
         username,
+        cnpj,
+        razaoSocial,
+        nomeFantasia,
+        site,
+        descricao,
+        areasAtuacao,
+        responsavel,
+        numeroDeIndentificacaoDaOng,
     } = req.body;
 
     try {
         const usuarioAtualizada = await prisma.tbUsuarioONG.update({
             where: { id: Number(id) },
             data: {
-              email,
-              username,
+                email,
+                username,
+                cnpj,
+                razaoSocial,
+                nomeFantasia,
+                site,
+                descricao,
+                areasAtuacao,
+                responsavel,
+                numeroDeIndentificacaoDaOng,
             },  
         });
 

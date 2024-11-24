@@ -8,7 +8,6 @@ async function putTbEndereco(req: Request, res: Response) {
       cidade,
       estado,
       cep,
-      FkIdTbVoluntario,
     } = req.body;
 
     try {
@@ -19,7 +18,6 @@ async function putTbEndereco(req: Request, res: Response) {
               cidade,
               estado,
               cep,
-              FkIdTbVoluntario,
             },  
         });
 

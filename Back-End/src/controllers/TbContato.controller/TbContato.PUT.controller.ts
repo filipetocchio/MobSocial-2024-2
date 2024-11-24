@@ -6,7 +6,6 @@ async function putTbContato(req: Request, res: Response) {
     const {
       telefone,
       email,
-      FkIdTbVoluntario,
     } = req.body;
 
     try {
@@ -15,7 +14,6 @@ async function putTbContato(req: Request, res: Response) {
             data: {
               telefone,
               email,
-              FkIdTbVoluntario,
             },  
         });
 
