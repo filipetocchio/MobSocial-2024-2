@@ -51,9 +51,7 @@ const Login = () => {
           }
         }
 
-        if (response.status == 200) {
-        window.location.href = "/";
-        }
+
 
       } catch (e) {
         console.error("Login failed", e);

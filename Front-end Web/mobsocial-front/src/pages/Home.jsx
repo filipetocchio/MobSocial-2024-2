@@ -8,7 +8,7 @@ import { UserContext } from "../context/UserContext";
 
 const Home = () => {
   const [userId, setUserId] = useState(window.localStorage.getItem("userId"));
-  const {isOng, setIsOng} = useContext(UserContext);
+  const { isOng, setIsOng } = useContext(UserContext);
   const [isHome, setIsHome] = useState(true);
   const [userToken, setUserToken] = useState(
     window.localStorage.getItem("token")
@@ -20,7 +20,7 @@ const Home = () => {
 
   useEffect(() => {
     if (userId) {
-      if (isOng === "true") {
+      if (isOng) {
         getUserById(userId, setData);
       } else {
         getUserByIdVoluntario(userId, setData);
@@ -36,10 +36,10 @@ const Home = () => {
       <div className="font-bold text-[#A3A3A3] w-full bg-black grid grid-cols-[3fr_1fr] gap-4">
         <Projetos />
         <div className="h-auto mt-8 px-4">
-        <User isOng={isOng} isHome={isHome} />
+          <User isOng={isOng} isHome={isHome} />
         </div>
       </div>
-    </> 
+    </>
   );
 };
 

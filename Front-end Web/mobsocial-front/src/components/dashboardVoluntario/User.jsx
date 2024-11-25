@@ -1,10 +1,10 @@
-import React, { useContext, useEffect } from "react";
-import { UserPhotoContext } from "../../context/UserPhotoContext";
-import { UserContext } from "../../context/UserContext";
-import UserIcon from "../../assets/user.svg";
-import { Link } from "react-router-dom";
+import React, { useContext, useEffect } from 'react';
+import { Link } from 'react-router-dom';
+import { UserPhotoContext } from '../../context/UserPhotoContext';
+import { UserContext } from '../../context/UserContext';
+import UserIcon from '../../assets/user.svg';
 
-const User = ({ isProjeto, isPerfil, isDash, isPerfilOng, isHome }) => {
+const User = ({ isHome, isVoluntario, isPerfilONG }) => {
   const { userPhoto } = useContext(UserPhotoContext);
   const { isOng } = useContext(UserContext);
 
@@ -34,54 +34,48 @@ const User = ({ isProjeto, isPerfil, isDash, isPerfilOng, isHome }) => {
         <div className="text-white w-full flex flex-col gap-4">
           <Link
             to="/"
-            className={`${
-              isHome && "bg-[#023666] border-0 font-extrabold"
-            } border-2 border-[#2F2E2E] rounded lg p-4 text-center hover:scale-105 duration-75 `}
+            className='
+               border-2 border-[#2F2E2E] rounded lg p-4 text-center hover:scale-105 duration-75 '
           >
             Página Inicial
           </Link>
           <Link
-            to="/PerfilONG"
-            className={`${
-              isPerfilOng && "bg-[#023666] border-0 font-extrabold"
-            } border-2 border-[#2F2E2E] rounded lg p-4 text-center hover:scale-105 duration-75 `}
+            to={navigationsOng.perfil}
+            className={`border-2 border-[#2F2E2E] rounded lg p-4 text-center hover:scale-105 duration-75 `}
           >
-            Meu Perfil
+            Perfil ONG
           </Link>
           <Link
-            to="/DashboardONG"
-            className={`${
-              isDash && "bg-[#023666] border-0 font-extrabold"
-            } border-2 border-[#2F2E2E] rounded lg p-4 text-center hover:scale-105 duration-75 `}
+            to={navigationsOng.dashboard}
+            className='
+               border-2 border-[#2F2E2E] rounded lg p-4 text-center hover:scale-105 duration-75 '
           >
-            Dashboard
+            Dashboard ONG
           </Link>
         </div>
       ) : (
         <div className="text-white w-full flex flex-col gap-4">
           <Link
             to="/"
-            className={`${
-              isHome && "bg-[#023666] border-0 font-extrabold"
-            } border-2 border-[#2F2E2E] rounded lg p-4 text-center hover:scale-105 duration-75 `}
+            className='
+               border-2 border-[#2F2E2E] rounded lg p-4 text-center hover:scale-105 duration-75 '
           >
             Página Inicial
           </Link>
           <Link
-            to="/PerfilVoluntario"
+            to={navigations.perfil}
             className={`${
-              isPerfil && "bg-[#023666] border-0 font-extrabold"
+              isVoluntario && "bg-[#023666] border-0 font-extrabold"
             } border-2 border-[#2F2E2E] rounded lg p-4 text-center hover:scale-105 duration-75 `}
           >
-            Meu Perfil
+            Perfil Voluntário
           </Link>
           <Link
-            to="/Dashboard-Voluntario"
-            className={`${
-              isDash && "bg-[#023666] border-0 font-extrabold"
-            } border-2 border-[#2F2E2E] rounded lg p-4 text-center hover:scale-105 duration-75 `}
+            to={navigations.dashboard}
+            className='
+               border-2 border-[#2F2E2E] rounded lg p-4 text-center hover:scale-105 duration-75 '
           >
-            Dashboard
+            Dashboard Voluntário
           </Link>
         </div>
       )}

@@ -29,6 +29,7 @@ const LoginService = async (data, token) => {
       result.data.isOng = false;
       localStorage.setItem("isOng", result.data.isOng)
       console.log(window.localStorage.getItem("isOng"));
+        window.location.href = "/";
 
       toast({
         position: "top-right",
@@ -79,6 +80,8 @@ const LoginService2 = async (data, token) => {
       localStorage.setItem("user", JSON.stringify(result)); // Store all user data
       localStorage.setItem("userId", result.data.id);
       result.data.isOng = true;
+      window.location.href = "/";
+
       localStorage.setItem("isOng", result.data.isOng)
 
       console.log(localStorage.getItem("userId"));

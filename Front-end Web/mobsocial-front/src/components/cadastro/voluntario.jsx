@@ -14,7 +14,11 @@ const Voluntario = () => {
   const [formData, setFormData] = useState({
     username: "",
     email: "",
+    cpf: "",
     password: "",
+    telefone: "",
+    areasInteresse: "",
+    experiencia: ""
   });
 
   const handleCadastro = async (e) => {

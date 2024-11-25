@@ -7,16 +7,16 @@ import FT2 from "../assets/FT-2.png";
 import Project1 from "../assets/Project1.svg";
 import Project2 from "../assets/Project2.svg";
 import Plus from "../assets/plus.svg"
+import getAllProject from "../services/createProject"
 import { Navigate, useNavigate } from "react-router-dom";
 
 const DashboardONG = () => {
   const [isDash, setIsDash] = useState(false);
+  const [storedProject, setStoredProject] = useState(false)
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (window.location.pathname === "/DashboardONG") {
-      setIsDash(true);
-    }
+    getAllProject(storedProject)
   }, []);
  
   const randomDate1 = new Date(

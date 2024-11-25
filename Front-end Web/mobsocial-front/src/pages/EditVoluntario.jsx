@@ -5,7 +5,7 @@ import Input from "../components/cadastro/Input";
 import { UserPhotoContext, UserPhotoProvider } from "../context/UserPhotoContext"; // Updated import path
 import User from "../components/dashboardVoluntario/User";
 import EditarFoto from "../components/Voluntario/EditarFoto"; // Import EditarFoto component
-import editVoluntario from '../services/editVoluntario'; // Import the service function
+import editVoluntario from '../services/editProject'; // Import the service function
 
 const EditVoluntario = () => {
   const [isPerfil, setIsPerfil] = useState(false);

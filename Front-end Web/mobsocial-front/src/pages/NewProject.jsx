@@ -4,6 +4,8 @@ import Input from "../components/cadastro/Input";
 import { FormControl } from "@mui/material";
 import Vagas from "../components/novo-projeto/vagas";
 import Plus from "../assets/plus.svg";
+import createProject from "../services/createProject";
+import updateProject from "../services/editProject"
 
 const NewProject = ({ project }) => {
   const location = useLocation();
@@ -23,6 +25,44 @@ const NewProject = ({ project }) => {
       setVagas(proj.vagas);
     }
   }, [project, projectFromState]);
+
+  const handleUpdate = async () => {
+    if (projectFromState) {
+      const updatedProject = {
+        titulo,
+        descricao,
+        categoria,
+        vagas,
+      };
+
+      try {
+        await updateProject(projectFromState.id, updatedProject);
+        alert('Projeto atualizado com sucesso!');
+      } catch (error) {
+        alert('Erro ao atualizar o projeto.');
+      }
+    }
+  };
+
+  const handleCreate = async () => {
+    const newProject = {
+      nome: titulo,
+      descricao,
+      categoria,
+      data: new Date(),
+      hora: "",
+      local: "",
+      hashimg: "",
+      numerVagas: 0,
+    };
+
+    try {
+      await createProject(newProject);
+      alert('Projeto criado com sucesso!');
+    } catch (error) {
+      console.log('Erro ao criar o projeto', error);
+    }
+  };
 
   return (
     <div className="bg-black min-h-screen">
@@ -96,7 +136,10 @@ const NewProject = ({ project }) => {
           <Vagas />
           
           <div className="w-[30%]">
-          <button className="bg-black hover:scale-105 duration-75 border-2 text-xl border-[#A3A3A3] text-[#A3A3A3] w-full rounded-lg h-20">
+          <button
+            className="bg-black hover:scale-105 duration-75 border-2 text-xl border-[#A3A3A3] text-[#A3A3A3] w-full rounded-lg h-20"
+            onClick={projectFromState ? handleUpdate : handleCreate}
+          >
             {buttonNameFromState}
           </button>
         </div>
