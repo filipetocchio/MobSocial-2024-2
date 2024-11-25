@@ -12,48 +12,21 @@ datasource db {
 
 // temporary comment because sqlite does not support it, uncomment when switching to PostgreSQL.
 // enum role {
-//   STUDENT
-//   TEACHER
-//   MANAGEMENT
-//   ADMINISTRATIVE
+//   VOLUNTARIO
+//   ONG
 //   ADMIN
 // }
 
-model TbVoluntario {
-  id              Int     @id @default(autoincrement())
-  nome            String
-  cpf             String  @unique
-  disponibilidade String // ex: days of the week and hours
-  areasInteresse  String // list of areas of interest, stored as a comma-separated string
-  experiencia     String? // brief description of previous experience
-
-  // relationship
-  TbEndereco TbEndereco[]
-  TbContato  TbContato[]
-  TbUsuario  TbUsuario[]
-
-  // log
-  openedat   DateTime  @default(now()) // opening date
-  closedAt   DateTime? // closing date
-  createdAt  DateTime  @default(now()) // creation date
-  updatedAt  DateTime  @updatedAt // update date
-  excludedAt DateTime? // deletion date
-}
-
-model TbONG {
+model TbUsuarioVoluntario {
   id           Int     @id @default(autoincrement())
-  cnpj         String  @unique
-  razaoSocial  String
-  nomeFantasia String
-  site         String? // optional
-  descricao    String? // brief description of the NGO
-  areasAtuacao String // ex: education, environment, health
-  responsavel  String // name of the responsible person
-
-  // relationship
-  TbEndereco TbEndereco[]
-  TbContato  TbContato[]
-  TbUsuario  TbUsuario[]
+  email        String  @unique
+  username     String  @unique
+  password     String
+  refreshToken String? @unique
+  telefone String?
+  cpf String?
+  areasInteresse  String
+  experiencia     String?
 
   // log
   openedat   DateTime  @default(now()) // opening date
@@ -63,40 +36,29 @@ model TbONG {
   excludedAt DateTime? // deletion date
 }
 
-model TbUsuario {
+model TbUsuarioONG {
   id           Int     @id @default(autoincrement())
   email        String  @unique
   username     String  @unique
   password     String
   refreshToken String? @unique
 
-  // relationship
-  FkIdTbVoluntario Int?
-  TbVoluntario     TbVoluntario? @relation(fields: [FkIdTbVoluntario], references: [id])
-  FkIdTbONG        Int?
-  TbONG            TbONG?        @relation(fields: [FkIdTbONG], references: [id])
-
-  // log
-  openedat   DateTime  @default(now()) // opening date
-  closedAt   DateTime? // closing date
-  createdAt  DateTime  @default(now()) // creation date
-  updatedAt  DateTime  @updatedAt // update date
-  excludedAt DateTime? // deletion date
-}
-
-model TbEndereco {
-  id Int @id @default(autoincrement())
+  cnpj         String  @unique
+  razaoSocial  String
+  nomeFantasia String
+  site         String?
+  descricao    String?
+  areasAtuacao String
+  responsavel  String
+  numeroDeIndentificacaoDaOng String @unique
 
   endereco String
+  complemento String
   cidade   String
   estado   String
   cep      String
 
-  // relationship
-  FkIdTbVoluntario Int?
-  TbVoluntario     TbVoluntario? @relation(fields: [FkIdTbVoluntario], references: [id])
-  FkIdTbONG        Int?
-  TbONG            TbONG?        @relation(fields: [FkIdTbONG], references: [id])
+  telefone String
 
   // log
   openedat   DateTime  @default(now()) // opening date
@@ -106,21 +68,34 @@ model TbEndereco {
   excludedAt DateTime? // deletion date
 }
 
-model TbContato {
-  id       Int    @id @default(autoincrement())
-  telefone String
-  email    String @unique
+model TbProjeto {
+  id          Int     @id @default(autoincrement())
+  nome        String
+  descricao   String
+  data        String
+  hora        String
+  local       String
+  numerVagas  Int
 
-  // relationship
-  FkIdTbVoluntario Int?
-  TbVoluntario     TbVoluntario? @relation(fields: [FkIdTbVoluntario], references: [id])
-  FkIdTbONG        Int?
-  TbONG            TbONG?        @relation(fields: [FkIdTbONG], references: [id])
+  hashimg     String  
 
   // log
-  openedat   DateTime  @default(now()) // opening date
-  closedAt   DateTime? // closing date
-  createdAt  DateTime  @default(now()) // creation date
-  updatedAt  DateTime  @updatedAt // update date
-  excludedAt DateTime? // deletion date
+  openedat       DateTime  @default(now())
+  closedAt       DateTime?
+  createdAt      DateTime  @default(now())
+  updatedAt      DateTime  @updatedAt
+  excludedAt     DateTime?
+}
+
+model TbNewsletter {
+  id        Int     @id @default(autoincrement())
+  titulo    String
+  conteudo  String
+
+  // log
+  openedat       DateTime  @default(now())
+  closedAt       DateTime?
+  createdAt      DateTime  @default(now())
+  updatedAt      DateTime  @updatedAt
+  excludedAt     DateTime?
 }
