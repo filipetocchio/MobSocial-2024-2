@@ -11,6 +11,8 @@ import { patchTbUsuarioVoluntario } from "../controllers/TbUsuarioVoluntario.con
 import { deleteTbUsuarioVoluntario } from "../controllers/TbUsuarioVoluntario.controller/TbUsuarioVoluntario.DELETE.controller";
 import { deleteByIDTbUsuarioVoluntario } from "../controllers/TbUsuarioVoluntario.controller/TbUsuarioVoluntario.DELETE.controller";
 
+import { upload } from "../utils/multerConfig";
+import { uploadUserPhoto } from "../controllers/TbUsuarioVoluntario.controller/TbUsuarioVoluntario.Upload.controller";
 
 export const TbUsuarioVoluntarioRouter = express.Router();
 export const TbUsuarioVoluntarioLoginRouter = express.Router();
@@ -24,6 +26,13 @@ TbUsuarioVoluntarioRouter.put("/:id", putTbUsuarioVoluntario);
 TbUsuarioVoluntarioRouter.patch("/:id", patchTbUsuarioVoluntario);
 TbUsuarioVoluntarioRouter.delete("/", deleteTbUsuarioVoluntario);
 TbUsuarioVoluntarioRouter.delete("/:id", deleteByIDTbUsuarioVoluntario);
+
+// Nova rota de upload de foto com ID
+TbUsuarioVoluntarioRouter.post(
+  "/uploadPhoto/:id",
+  upload.single("photo"),
+  uploadUserPhoto
+);
 
 TbUsuarioVoluntarioLoginRouter.post("/", postLoginTbUsuarioVoluntario);
 tbUsuarioVoluntarioLogoutRouter.get("/", getLogoutTbUsuarioVoluntario);
