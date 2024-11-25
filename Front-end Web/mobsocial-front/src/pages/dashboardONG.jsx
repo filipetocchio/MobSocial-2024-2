@@ -71,9 +71,9 @@ pelo aprendizado.`,
 
   return (
     <div className="bg-black min-h-screen p-8">
-      <div className="grid grid-cols-1 lg:grid-cols-[6fr_1fr]">
+      <div className="grid grid-cols-1 lg:grid-cols-[3fr_1fr] gap-8">
         <div className="flex items-center flex-col gap-12">
-          <div className="flex flex-col lg:flex-row justify-around w-full lg:w-[80%] items-center">
+          <div className="flex flex-col lg:flex-row justify-around w-full items-center">
             <h1 className="font-bold text-5xl text-white mb-4 lg:mb-0">Meus Projetos</h1>
             <button 
             onClick={() => navigate("/NewProject")}

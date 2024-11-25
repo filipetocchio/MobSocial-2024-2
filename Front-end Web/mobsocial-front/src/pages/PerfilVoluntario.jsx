@@ -47,8 +47,8 @@ proporcionando lares amorosos e responsáveis.`,
     }
 ]
   return (
-    <div className="bg-black text-white min-h-screen grid grid-cols-[6fr_1fr] pl-32 py-12 px-8">
-      <div className="w-[75%]">
+    <div className="bg-black text-white min-h-screen grid grid-cols-[3fr_1fr] pl-32 py-12 px-8 gap-8">
+      <div className="w-full">
         <EditarFoto />
 
         <div className="text-[#F5FDFF] bg-[#1E1E1E] border-2 border-[#F5FDFF] w-full text-center rounded-lg mb-8">

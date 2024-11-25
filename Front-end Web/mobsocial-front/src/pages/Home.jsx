@@ -33,9 +33,11 @@ const Home = () => {
   return (
     <>
       <Header userToken={userToken} />
-      <div className="font-bold text-[#A3A3A3] w-full bg-black flex flex-row">
+      <div className="font-bold text-[#A3A3A3] w-full bg-black grid grid-cols-[3fr_1fr] gap-4">
         <Projetos />
+        <div className="h-auto mt-8 px-4">
         <User isOng={isOng} isHome={isHome} />
+        </div>
       </div>
     </> 
   );

@@ -67,7 +67,7 @@ pelo aprendizado.`,
 
   return (
     <div className="bg-black min-h-screen p-8">
-      <div className="grid grid-cols-[6fr_1fr]">
+      <div className="grid grid-cols-[3fr_1fr]">
         <div className="flex items-center flex-col gap-12">
           <SearchBar />
           <ProjetosRecomendados projetos={projetos} />

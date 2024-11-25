@@ -60,7 +60,7 @@ const EditVoluntario = () => {
   
 
   return (
-    <div className="min-h-screen bg-black grid grid-cols-[6fr_1fr] p-8 pl-[10%] pb-32">
+    <div className="min-h-screen bg-black grid grid-cols-[3fr_1fr] p-8 pl-[10%] pb-32">
       <div className="w-full flex-grow">
         <div className="max-w-[80%]">
           <FormControl className="flex flex-col gap-8 w-full items-center">

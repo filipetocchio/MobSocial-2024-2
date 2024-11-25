@@ -22,7 +22,7 @@ const ProjetosRecomendados = ({ projetos, isPerfil }) => {
               />
               <h1>{projeto.title}</h1>
             </div>
-            <div className="flex flex-row gap-4 px-6 pb-8 h-full">
+            <div className="flex flex-col lg:flex-row gap-4 px-6 pb-8 h-full">
               <img
                 src={projeto.imagem}
                 alt="Photo from project"
@@ -31,7 +31,7 @@ const ProjetosRecomendados = ({ projetos, isPerfil }) => {
 
               <div className="flex flex-col gap-8 h-full w-full">
                 <h1 className="text-white">{projeto.descricao}</h1>
-                <button className="rounded-lg bg-[#1E1E1E] w-[30%] border-2 border-[#A3A3A3] p-4 self-end place-content-end">
+                <button className="rounded-lg bg-[#1E1E1E] w-auto border-2 border-[#A3A3A3] p-4 self-end place-content-end">
                   Participe
                 </button>
               </div>
