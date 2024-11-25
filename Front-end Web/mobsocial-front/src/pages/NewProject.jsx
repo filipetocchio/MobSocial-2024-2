@@ -56,7 +56,6 @@ const NewProject = ({ project }) => {
     };
 
     const newProject = {
-      id: Date.now(),
       nome: nome,
       descricao: descricao,
       categoria: categoria,
@@ -73,6 +72,15 @@ const NewProject = ({ project }) => {
     } catch (error) {
       console.log('Erro ao criar o projeto', error);
     }
+  };
+
+  const handleButtonClick = async () => {
+    if (projectData && Object.keys(projectData).length > 0) {
+      await handleUpdate();
+    } else {
+      await handleCreate();
+    }
+    window.location.href = "/dashboardONG";
   };
 
   return (
@@ -149,7 +157,7 @@ const NewProject = ({ project }) => {
           <div className="w-[30%]">
           <button
             className="bg-black hover:scale-105 duration-75 border-2 text-xl border-[#A3A3A3] text-[#A3A3A3] w-full rounded-lg h-20"
-            onClick={projectData ? handleUpdate : handleCreate}
+            onClick={handleButtonClick}
           >
             {buttonNameFromState}
           </button>
