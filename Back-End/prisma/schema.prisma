@@ -24,15 +24,10 @@ model TbUsuarioVoluntario {
   password     String
   refreshToken String? @unique
 
-  nome            String
-  cpf             String  @unique
-  disponibilidade String
+  cpf             String
+  telefone String
   areasInteresse  String
   experiencia     String?
-
-  // relationship
-  TbEndereco TbEndereco[]
-  TbContato  TbContato[]
 
   // log
   openedat   DateTime  @default(now()) // opening date
@@ -58,49 +53,13 @@ model TbUsuarioONG {
   responsavel  String
   numeroDeIndentificacaoDaOng String @unique
 
-  // relationship
-  TbEndereco TbEndereco[]
-  TbContato  TbContato[]
-
-  // log
-  openedat   DateTime  @default(now()) // opening date
-  closedAt   DateTime? // closing date
-  createdAt  DateTime  @default(now()) // creation date
-  updatedAt  DateTime  @updatedAt // update date
-  excludedAt DateTime? // deletion date
-}
-
-model TbEndereco {
-  id Int @id @default(autoincrement())
   endereco String
+  complemento String
   cidade   String
   estado   String
   cep      String
 
-  // relationship
-  FkIdTbUsuarioVoluntario Int?
-  TbUsuarioVoluntario     TbUsuarioVoluntario? @relation(fields: [FkIdTbUsuarioVoluntario], references: [id])
-  FkIdTbUsuarioONG        Int?
-  TbUsuarioONG            TbUsuarioONG?        @relation(fields: [FkIdTbUsuarioONG], references: [id])
-
-  // log
-  openedat   DateTime  @default(now()) // opening date
-  closedAt   DateTime? // closing date
-  createdAt  DateTime  @default(now()) // creation date
-  updatedAt  DateTime  @updatedAt // update date
-  excludedAt DateTime? // deletion date
-}
-
-model TbContato {
-  id       Int    @id @default(autoincrement())
   telefone String
-  email    String @unique
-
-  // relationship
-  FkIdTbUsuarioVoluntario Int?
-  TbUsuarioVoluntario     TbUsuarioVoluntario? @relation(fields: [FkIdTbUsuarioVoluntario], references: [id])
-  FkIdTbUsuarioONG        Int?
-  TbUsuarioONG            TbUsuarioONG?        @relation(fields: [FkIdTbUsuarioONG], references: [id])
 
   // log
   openedat   DateTime  @default(now()) // opening date

@@ -10,7 +10,7 @@ dotenv.config();
 
 async function postTbUsuarioONG(req: Request, res: Response) {
   try {
-    const { username, password, email, cnpj, numeroDeIndentificacaoDaOng, razaoSocial, nomeFantasia, site, descricao, areasAtuacao, responsavel } = req.body;
+    const { username, password, email, cnpj, numeroDeIndentificacaoDaOng, razaoSocial, nomeFantasia, site, descricao, areasAtuacao, responsavel, endereco, complemento, cidade, estado, cep, telefone } = req.body;
 
     const duplicate = await prisma.tbUsuarioONG.findFirst({
       where: { OR: [{ username: username }, { email: email }] },
@@ -66,6 +66,12 @@ async function postTbUsuarioONG(req: Request, res: Response) {
         areasAtuacao: areasAtuacao,
         responsavel: responsavel,
         numeroDeIndentificacaoDaOng: numeroDeIndentificacaoDaOng,
+        endereco: endereco,
+        complemento: complemento,
+        cidade: cidade,
+        estado: estado,
+        cep: cep,
+        telefone: telefone,
       },
     });
 
@@ -83,6 +89,12 @@ async function postTbUsuarioONG(req: Request, res: Response) {
         areasAtuacao: user.areasAtuacao,
         responsavel: user.responsavel,
         numeroDeIndentificacaoDaOng: user.numeroDeIndentificacaoDaOng,
+        endereco: user.endereco,
+        complemento: user.complemento,
+        cidade: user.cidade,
+        estado: user.estado,
+        cep: user.cep,
+        telefone: user.telefone,
         accessToken: accessToken,
       },
     });

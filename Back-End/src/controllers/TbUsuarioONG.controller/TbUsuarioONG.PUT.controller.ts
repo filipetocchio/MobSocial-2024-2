@@ -6,6 +6,8 @@ async function putTbUsuarioONG(req: Request, res: Response) {
     const {
         email,
         username,
+        password,
+        refreshToken,
         cnpj,
         razaoSocial,
         nomeFantasia,
@@ -14,6 +16,12 @@ async function putTbUsuarioONG(req: Request, res: Response) {
         areasAtuacao,
         responsavel,
         numeroDeIndentificacaoDaOng,
+        endereco,
+        complemento,
+        cidade,
+        estado,
+        cep,
+        telefone,
     } = req.body;
 
     try {
@@ -22,6 +30,8 @@ async function putTbUsuarioONG(req: Request, res: Response) {
             data: {
                 email,
                 username,
+                password,
+                refreshToken,
                 cnpj,
                 razaoSocial,
                 nomeFantasia,
@@ -30,6 +40,12 @@ async function putTbUsuarioONG(req: Request, res: Response) {
                 areasAtuacao,
                 responsavel,
                 numeroDeIndentificacaoDaOng,
+                endereco,
+                complemento,
+                cidade,
+                estado,
+                cep,
+                telefone,
             },  
         });
 

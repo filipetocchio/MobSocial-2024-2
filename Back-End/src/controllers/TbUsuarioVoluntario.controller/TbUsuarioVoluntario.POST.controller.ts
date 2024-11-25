@@ -10,7 +10,7 @@ dotenv.config();
 
 async function postTbUsuarioVoluntario(req: Request, res: Response) {
   try {
-    const { username, password, email, nome, cpf, disponibilidade, areasInteresse, experiencia } = req.body;
+    const { username, password, email, cpf, telefone, areasInteresse, experiencia } = req.body;
 
     const duplicate = await prisma.tbUsuarioVoluntario.findFirst({
       where: { OR: [{ username: username }, { email: email }] },
@@ -51,9 +51,8 @@ async function postTbUsuarioVoluntario(req: Request, res: Response) {
         username: username,
         password: hashedPassword,
         refreshToken: refreshToken,
-        nome: nome,
         cpf: cpf,
-        disponibilidade: disponibilidade,
+        telefone: telefone,
         areasInteresse: areasInteresse,
         experiencia: experiencia,
       },
@@ -62,15 +61,12 @@ async function postTbUsuarioVoluntario(req: Request, res: Response) {
     return res.status(201).json({
       success: true,
       data: {
-        id: user.id,
         email: user.email,
         username: user.username,
-        nome: user.nome,
         cpf: user.cpf,
-        disponibilidade: user.disponibilidade,
+        telefone: user.telefone,
         areasInteresse: user.areasInteresse,
         experiencia: user.experiencia,
-        accessToken: accessToken,
       },
     });
   } catch (error) {
