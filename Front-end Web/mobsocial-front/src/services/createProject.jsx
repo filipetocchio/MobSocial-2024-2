@@ -31,4 +31,4 @@ const createProject = async (projectData) => {
     }
   }
 
-  export default {getAllProject, createProject}
+  export { getAllProject, createProject }

@@ -64,9 +64,8 @@ const User = ({ isHome, isVoluntario, isPerfilONG }) => {
           </Link>
           <Link
             to={navigations.perfil}
-            className={`${
-              isVoluntario && "bg-[#023666] border-0 font-extrabold"
-            } border-2 border-[#2F2E2E] rounded lg p-4 text-center hover:scale-105 duration-75 `}
+            className={`
+            border-2 border-[#2F2E2E] rounded lg p-4 text-center hover:scale-105 duration-75 `}
           >
             Perfil Voluntário
           </Link>

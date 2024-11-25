@@ -10,7 +10,6 @@ import Project2 from "../assets/Project2.svg";
 const DashboardVoluntario = (isVoluntario) => {
   const [isDash, setIsDash] = useState(false);
 
-
   useEffect(() => {
     if (window.location.pathname === "/Dashboard-Voluntario") {
       setIsDash(true);
@@ -23,6 +22,12 @@ const DashboardVoluntario = (isVoluntario) => {
   const randomDate2 = new Date(
     +new Date() - Math.floor(Math.random() * 10000000000)
   );
+  const randomDate3 = new Date(
+    +new Date() - Math.floor(Math.random() * 10000000000)
+  );
+  const randomDate4 = new Date(
+    +new Date() - Math.floor(Math.random() * 10000000000)
+  );
 
   const formatDate = (date) => {
     const month = date.getMonth() + 1;
@@ -32,6 +37,7 @@ const DashboardVoluntario = (isVoluntario) => {
 
   const projetos = [
     {
+      id: 1,
       titulo: "Reflorestamento Urbano",
       data: `${formatDate(randomDate1)} a ${formatDate(randomDate2)}`,
       imagem: FT,
@@ -45,8 +51,9 @@ const DashboardVoluntario = (isVoluntario) => {
         urbanas.`,
     },
     {
+      id: 2,
       titulo: "Limpeza de Praias",
-      data: `${formatDate(randomDate1)} a ${formatDate(randomDate2)}`,
+      data: `${formatDate(randomDate3)} a ${formatDate(randomDate4)}`,
       logo: Project2,
       imagem: FT2,
       descricao: `O projeto "Apoio Escolar para Crianças" tem como 
@@ -70,7 +77,7 @@ pelo aprendizado.`,
       <div className="grid grid-cols-[3fr_1fr]">
         <div className="flex items-center flex-col gap-12">
           <SearchBar />
-          <ProjetosRecomendados projetos={projetos} />
+          <ProjetosRecomendados projetos={projetos} isPerfil={false} />
         </div>
         <div className="h-auto">
         <User isDash={isDash}

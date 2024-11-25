@@ -1,5 +1,6 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import { UserPhotoContext } from "../../context/UserPhotoContext";
+import EditarVoluntarioService from "../../services/editarVoluntario";
 
 const EditarFoto = () => {
   const { userPhoto, setUserPhoto } = useContext(UserPhotoContext);
@@ -27,12 +28,22 @@ const EditarFoto = () => {
           alt="User"
           className="h-32 w-32 rounded-full border-2 border-[#A3A3A3]"
         ></img>
-        <button
-          onClick={handleChangePhotoClick}
-          className="hover:brightness-90 hover:scale-105 text-[#A3A3A3] text-xl border-2 border-[#A3A3A3] rounded-lg p-4 h-12 flex items-center"
-        >
-          ALTERAR FOTO
-        </button>
+        <div className="flex flex-row gap-4">
+          <button
+            onClick={handleChangePhotoClick}
+            className="hover:brightness-90 hover:scale-105 text-[#A3A3A3] text-xl border-2 border-[#A3A3A3] rounded-lg p-4 h-12 flex items-center"
+          >
+            ALTERAR FOTO
+          </button>
+
+          {window.location.href !== "/EditVoluntario" && (
+          <button 
+            onClick={() => window.location.href="/EditVoluntario"}
+            className="hover:brightness-90 hover:scale-105 text-[#A3A3A3] text-xl border-2 border-[#A3A3A3] rounded-lg p-4 h-12 flex items-center">
+            EDITAR PERFIL
+          </button>
+          )}
+        </div>
         <input
           type="file"
           id="fileInput"
@@ -40,6 +51,7 @@ const EditarFoto = () => {
           onChange={handleFileChange}
         />
       </div>
+
     </div>
   );
 };

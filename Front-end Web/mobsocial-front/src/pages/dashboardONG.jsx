@@ -7,7 +7,7 @@ import FT2 from "../assets/FT-2.png";
 import Project1 from "../assets/Project1.svg";
 import Project2 from "../assets/Project2.svg";
 import Plus from "../assets/plus.svg"
-import getAllProject from "../services/createProject"
+import {getAllProject} from "../services/createProject"
 import { Navigate, useNavigate } from "react-router-dom";
 
 const DashboardONG = () => {
@@ -16,8 +16,10 @@ const DashboardONG = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    getAllProject(storedProject)
+    getAllProject(setStoredProject)
   }, []);
+  console.log(storedProject)
+
  
   const randomDate1 = new Date(
     +new Date() - Math.floor(Math.random() * 10000000000)
@@ -82,7 +84,7 @@ pelo aprendizado.`,
               Novo projeto
             </button>
           </div>
-          <ProjetosCriados projetos={projetos} />
+          <ProjetosCriados storedProject={storedProject} projetos={projetos} />
         </div>
         <div className="h-auto mt-8 lg:mt-0">
           <User isDash={isDash} />

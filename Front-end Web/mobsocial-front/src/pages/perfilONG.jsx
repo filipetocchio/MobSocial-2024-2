@@ -98,10 +98,10 @@ proporcionando lares amorosos e responsáveis.`,
           </button>
         </div>
         {buttonsState.newsletter && (
-          <ProjetosRecomendados projetos={projetosInscritos} isPerfil={true} />
+          <ProjetosRecomendados projetos={projetosInscritos} />
         )}
         {buttonsState.projetos && (
-          <ProjetosRecomendados projetos={projetosInscritos} isPerfil={true} />
+          <ProjetosRecomendados projetos={projetosInscritos} />
         )}
         {buttonsState.sobre && (
           <div className="flex flex-row gap-12 justify-center w-full">

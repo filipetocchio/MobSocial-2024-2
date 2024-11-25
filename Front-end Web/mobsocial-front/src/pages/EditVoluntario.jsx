@@ -1,15 +1,18 @@
 import React, { useState, useContext, useEffect } from "react";
-import { useParams } from "react-router-dom"; // Import useParams
-import { FormControl, InputLabel } from "@mui/material";
+import { useParams } from "react-router-dom";
+import { FormControl } from "@mui/material";
 import Input from "../components/cadastro/Input";
-import { UserPhotoContext, UserPhotoProvider } from "../context/UserPhotoContext"; // Updated import path
+import { UserPhotoContext } from "../context/UserPhotoContext";
 import User from "../components/dashboardVoluntario/User";
-import EditarFoto from "../components/Voluntario/EditarFoto"; // Import EditarFoto component
-import editVoluntario from '../services/editProject'; // Import the service function
+import EditarFoto from "../components/Voluntario/EditarFoto";
+import EditarVoluntarioService from '../services/editarVoluntario';
+import axios from "axios";
+import { ToastContainer } from "react-toastify";
 
 const EditVoluntario = () => {
   const [isPerfil, setIsPerfil] = useState(false);
-  const { voluntarioId } = useParams(); // Get voluntarioId from URL params
+  const [userId, setUserId] = useState(window.localStorage.getItem("userId"));
+  console.log(userId);
   const [focusedInput, setFocusedInput] = useState(null);
   const [nome, setNome] = useState("");
   const [sobrenome, setSobrenome] = useState("");
@@ -26,8 +29,33 @@ const EditVoluntario = () => {
     if (window.location.pathname === "/EditVoluntario") {
       setIsPerfil(true);
     }
-  }, []);
-
+    // Fetch existing user data and pre-fill the form
+    const fetchUserData = async () => {
+      const token = localStorage.getItem("token");
+      if (token) {
+        try {
+          const response = await axios.get(`http://localhost:8001/api/v1/TbUsuarioVoluntario/${userId}`, {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          });
+          const data = response.data;
+          setNome(data.nome);
+          setSobrenome(data.sobrenome);
+          setTelefone(data.telefone);
+          setEmail(data.email);
+          setEndereco(data.endereco);
+          setCep(data.cep);
+          setComplemento(data.complemento);
+          setNumero(data.numero);
+          setUserPhoto(data.userPhoto || userPhoto);
+        } catch (error) {
+          console.error("Failed to fetch user data:", error);
+        }
+      }
+    };
+    fetchUserData();
+  }, [userId, setUserPhoto]);
 
   const handleSubmit = async () => {
     const newErrors = {};
@@ -38,18 +66,18 @@ const EditVoluntario = () => {
 
     if (Object.keys(newErrors).length === 0) {
       const formData = {
-        nome,
-        sobrenome,
-        telefone,
         email,
-        endereco,
-        cep,
-        complemento,
-        numero,
-        userPhoto,
+        username: "",
+        password: "",
+        refreshToken: "",
+        cpf: "",
+        telefone,
+        areasInteresse: "",
+        experiencia: "",
       };
       try {
-        const updatedData = await editVoluntario(voluntarioId, formData); // Use the service function
+        const token = localStorage.getItem("token");
+        const updatedData = await EditarVoluntarioService(formData, token);
         console.log("Updated volunteer data:", updatedData);
       } catch (error) {
         console.error("Failed to update volunteer data:", error);
@@ -57,12 +85,12 @@ const EditVoluntario = () => {
     }
   };
 
-  
-
   return (
     <div className="min-h-screen bg-black grid grid-cols-[3fr_1fr] p-8 pl-[10%] pb-32">
       <div className="w-full flex-grow">
         <div className="max-w-[80%]">
+      <ToastContainer />
+
           <FormControl className="flex flex-col gap-8 w-full items-center">
             <EditarFoto /> {/* Use EditarFoto component */}
             <button
@@ -169,13 +197,10 @@ const EditVoluntario = () => {
         </div>
       </div>
       <div className="h-auto">
-      <User 
-      isPerfil={isPerfil} />
+        <User isPerfil={isPerfil} />
       </div>
-      
     </div>
   );
 };
-
 
 export default EditVoluntario;

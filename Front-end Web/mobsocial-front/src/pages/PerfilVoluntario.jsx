@@ -8,12 +8,11 @@ import User from "../components/dashboardVoluntario/User";
 const PerfilVoluntario = () => {
   const [isProjeto, setIsProjeto] = useState(false);
   const [isVoluntario, setIsVoluntario] = useState(false);
+  const [projetosInscritos, setProjetosInscritos] = useState([]);
 
   useEffect(() => {
-    if (window.location.pathname === "/PerfilVoluntario") {
-      setIsProjeto(true);
-      setIsVoluntario(true);
-    }
+    const inscritos = JSON.parse(localStorage.getItem("projetosInscritos")) || [];
+    setProjetosInscritos(inscritos);
   }, []);
 
   const randomDate1 = new Date(
@@ -29,23 +28,6 @@ const PerfilVoluntario = () => {
     return `${month}/${year}`;
   };
 
-  const projetosInscritos = [
-    {
-      title: "Feira de Adoção de Animais",
-      descricao:`A "Feira de Adoção de Animais" é um projeto dedicado 
-a promover a adoção responsável de cães e gatos 
-resgatados, organizando eventos periódicos onde 
-as pessoas podem conhecer e adotar seus futuros 
-companheiros. Além disso, buscamos conscientizar a 
-comunidade sobre a importância do cuidado com os 
-animais e a prevenção do abandono. Nosso objetivo é 
-oferecer uma nova chance para esses pets, 
-proporcionando lares amorosos e responsáveis.`,
-      logo: Logo,
-      data: `${formatDate(randomDate1)} a ${formatDate(randomDate2)}`,
-      imagem: Cachorrinho
-    }
-]
   return (
     <div className="bg-black text-white min-h-screen grid grid-cols-[3fr_1fr] pl-32 py-12 px-8 gap-8">
       <div className="w-full">
@@ -57,8 +39,7 @@ proporcionando lares amorosos e responsáveis.`,
         <ProjetosRecomendados projetos={projetosInscritos} isPerfil={true} />
       </div>
       <div className="h-auto">
-        <User isProjeto={isProjeto}
-        isVoluntario={isVoluntario} />
+        <User />
       </div>
     </div>
   );

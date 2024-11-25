@@ -4,8 +4,9 @@ import Input from "../components/cadastro/Input";
 import { FormControl } from "@mui/material";
 import Vagas from "../components/novo-projeto/vagas";
 import Plus from "../assets/plus.svg";
-import createProject from "../services/createProject";
+import { createProject } from "../services/createProject";
 import updateProject from "../services/editProject"
+import User from "../assets/user.svg"
 
 const NewProject = ({ project }) => {
   const location = useLocation();
@@ -17,8 +18,8 @@ const NewProject = ({ project }) => {
   const [vagas, setVagas] = useState("");
 
   useEffect(() => {
-    if (project || projectFromState) {
-      const proj = project || projectFromState;
+    const proj = project || projectFromState;
+    if (proj) {
       setTitulo(proj.titulo);
       setDescricao(proj.descricao);
       setCategoria(proj.categoria);
@@ -45,14 +46,20 @@ const NewProject = ({ project }) => {
   };
 
   const handleCreate = async () => {
+    const formatDate = (date) => {
+      const month = date.getMonth() + 1;
+      const year = date.getFullYear();
+      return `${month}/${year}`;
+    };
+
     const newProject = {
       nome: titulo,
       descricao,
       categoria,
-      data: new Date(),
+      data: `${formatDate(new Date())} a ${formatDate(new Date())}`,
       hora: "",
       local: "",
-      hashimg: "",
+      hashimg: User,
       numerVagas: 0,
     };
 
