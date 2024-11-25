@@ -7,7 +7,7 @@ import FT2 from "../assets/FT-2.png";
 import Project1 from "../assets/Project1.svg";
 import Project2 from "../assets/Project2.svg";
 import Plus from "../assets/plus.svg"
-import {getAllProject} from "../services/createProject"
+import {getProject} from "../services/editProject"
 import { Navigate, useNavigate } from "react-router-dom";
 
 const DashboardONG = () => {
@@ -16,7 +16,7 @@ const DashboardONG = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    getAllProject(setStoredProject)
+    getProject(setStoredProject)
   }, []);
   console.log(storedProject)
 

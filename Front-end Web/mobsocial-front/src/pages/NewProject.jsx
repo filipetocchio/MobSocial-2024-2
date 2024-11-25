@@ -5,12 +5,13 @@ import { FormControl } from "@mui/material";
 import Vagas from "../components/novo-projeto/vagas";
 import Plus from "../assets/plus.svg";
 import { createProject } from "../services/createProject";
-import updateProject from "../services/editProject"
+import {editONG} from "../services/editProject"
 import User from "../assets/user.svg"
 
-const NewProject = ({ project }) => {
+const NewProject = ({ project, updateProjects }) => {
   const location = useLocation();
   const projectFromState = location.state?.project;
+  console.log(projectFromState)
   const buttonNameFromState = location.state?.buttonName || "Criar";
   const [titulo, setTitulo] = useState("");
   const [descricao, setDescricao] = useState("");
@@ -27,9 +28,20 @@ const NewProject = ({ project }) => {
     }
   }, [project, projectFromState]);
 
+  console.log(descricao)
+
+  const updateStoredProjects = (newProject) => {
+    const storedProjects = JSON.parse(localStorage.getItem('projects')) || [];
+    const updatedProjects = projectFromState
+      ? storedProjects.map((proj) => (proj.id === projectFromState.id ? { ...proj, ...newProject } : proj))
+      : [...storedProjects, newProject];
+    localStorage.setItem('projects', JSON.stringify(updatedProjects));
+  };
+
   const handleUpdate = async () => {
     if (projectFromState) {
       const updatedProject = {
+        id: projectFromState.id,
         titulo,
         descricao,
         categoria,
@@ -37,7 +49,8 @@ const NewProject = ({ project }) => {
       };
 
       try {
-        await updateProject(projectFromState.id, updatedProject);
+        await editONG(projectFromState.id, updatedProject);
+        updateProjects(updatedProject);
         alert('Projeto atualizado com sucesso!');
       } catch (error) {
         alert('Erro ao atualizar o projeto.');
@@ -53,6 +66,7 @@ const NewProject = ({ project }) => {
     };
 
     const newProject = {
+      id: Date.now(),
       nome: titulo,
       descricao,
       categoria,
@@ -65,6 +79,7 @@ const NewProject = ({ project }) => {
 
     try {
       await createProject(newProject);
+      updateProjects(newProject);
       alert('Projeto criado com sucesso!');
     } catch (error) {
       console.log('Erro ao criar o projeto', error);
