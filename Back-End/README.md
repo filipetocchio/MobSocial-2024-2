@@ -79,3 +79,6 @@ Ainda estamos trabalhando na implementação do Docker para containerizar a apli
 - **Migração para Nest.js**: A aplicação poderá ser migrada para **Nest.js** no futuro, especialmente quando for necessária a integração com o frontend.
 - **Frontend**: O frontend poderá ser desenvolvido usando **React** ou **Next.js**, e a integração com o backend será feita via API REST.
 
+## o porquê aquela linguagem escolhida faz sentido para aquele projeto.
+
+A escolha de Node.js com Express.js e Prisma utilizando TypeScript faz sentido para este projeto social por várias razões. O Node.js é amplamente utilizado para construir APIs rápidas e escaláveis, o que é essencial para um projeto social que pode crescer e atrair muitos usuários. O Express.js oferece uma estrutura leve, facilitando o desenvolvimento de rotas e middlewares. Com Prisma, o gerenciamento de banco de dados é simplificado, especialmente para um projeto que envolve diferentes entidades e relacionamentos. O uso de TypeScript adiciona tipagem estática, proporcionando mais segurança e clareza ao código, o que é fundamental em sistemas que podem se expandir. Embora a aplicação esteja sendo desenvolvida com essa stack, a migração futura para Nest.js permitirá uma melhor organização de módulos e maior escalabilidade, especialmente quando integrarmos o front-end com React ou Next.js.

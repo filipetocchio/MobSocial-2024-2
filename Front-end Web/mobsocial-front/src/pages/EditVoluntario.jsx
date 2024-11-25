@@ -5,7 +5,7 @@ import Input from "../components/cadastro/Input";
 import { UserPhotoContext, UserPhotoProvider } from "../context/UserPhotoContext"; // Updated import path
 import User from "../components/dashboardVoluntario/User";
 import EditarFoto from "../components/Voluntario/EditarFoto"; // Import EditarFoto component
-import editVoluntario from '../services/editVoluntario'; // Import the service function
+import editVoluntario from '../services/editProject'; // Import the service function
 
 const EditVoluntario = () => {
   const [isPerfil, setIsPerfil] = useState(false);
@@ -60,7 +60,7 @@ const EditVoluntario = () => {
   
 
   return (
-    <div className="min-h-screen bg-black grid grid-cols-[6fr_1fr] p-8 pl-[10%] pb-32">
+    <div className="min-h-screen bg-black grid grid-cols-[3fr_1fr] p-8 pl-[10%] pb-32">
       <div className="w-full flex-grow">
         <div className="max-w-[80%]">
           <FormControl className="flex flex-col gap-8 w-full items-center">

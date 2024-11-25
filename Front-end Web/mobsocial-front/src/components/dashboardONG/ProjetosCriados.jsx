@@ -33,11 +33,11 @@ const ProjetosCriados = ({ projetos, isPerfil }) => {
         projetosState.map((projeto, index) => (
           <div
             className={`border-2 border-[#2F2E2E] h-auto ${
-              isPerfil ? "w-full" : "w-[80%]"
+              isPerfil ? "w-full" : "w-full]"
             } text-white rounded-lg`}
             key={index}
           >
-            <div>
+            <div className="w-auto">
               <div className="flex flex-row justify-around w-full px-6 my-4">
                 <img
                   src={projeto.logo}

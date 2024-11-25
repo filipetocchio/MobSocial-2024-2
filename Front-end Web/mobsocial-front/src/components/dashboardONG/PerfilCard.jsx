@@ -16,7 +16,7 @@ const perfilCard = () => {
           <h1>ONG - Patas e Lares</h1>
           <button
             onClick={() => handleClick()}
-            className={`rounded-lg w-[10%] px-4 py-2 border border-[#A3A3A3] ${
+            className={`rounded-lg w-auto px-4 py-2 border border-[#A3A3A3] ${
               buttonState 
                 ? "bg-[#023666] text-white font-bold"
                 : "bg-[#1E1E1E] text-white hover:scale-105 duration-75"

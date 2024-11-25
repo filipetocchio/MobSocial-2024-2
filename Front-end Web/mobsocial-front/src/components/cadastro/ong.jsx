@@ -34,6 +34,18 @@ const Ong = () => {
         email: email,
         cnpj: cnpj,
         numeroDeIndentificacaoDaOng: numeroIdentificacao,
+        razaoSocial: "",
+        nomeFantasia: "",
+        site: "", 
+        descricao: "", 
+        areasAtuacao: "", 
+        responsavel: "", 
+        endereco: "", 
+        complemento: "", 
+        cidade: "", 
+        estado: "", 
+        cep: "", 
+        telefone: ""
       };
 
       try {

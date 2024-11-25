@@ -50,7 +50,8 @@ const Login = () => {
             console.error("Second request failed", secondResponse.status);
           }
         }
-        window.location.href = "/";
+
+
 
       } catch (e) {
         console.error("Login failed", e);

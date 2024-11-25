@@ -7,16 +7,16 @@ import FT2 from "../assets/FT-2.png";
 import Project1 from "../assets/Project1.svg";
 import Project2 from "../assets/Project2.svg";
 import Plus from "../assets/plus.svg"
+import getAllProject from "../services/createProject"
 import { Navigate, useNavigate } from "react-router-dom";
 
 const DashboardONG = () => {
   const [isDash, setIsDash] = useState(false);
+  const [storedProject, setStoredProject] = useState(false)
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (window.location.pathname === "/DashboardONG") {
-      setIsDash(true);
-    }
+    getAllProject(storedProject)
   }, []);
  
   const randomDate1 = new Date(
@@ -71,9 +71,9 @@ pelo aprendizado.`,
 
   return (
     <div className="bg-black min-h-screen p-8">
-      <div className="grid grid-cols-1 lg:grid-cols-[6fr_1fr]">
+      <div className="grid grid-cols-1 lg:grid-cols-[3fr_1fr] gap-8">
         <div className="flex items-center flex-col gap-12">
-          <div className="flex flex-col lg:flex-row justify-around w-full lg:w-[80%] items-center">
+          <div className="flex flex-col lg:flex-row justify-around w-full items-center">
             <h1 className="font-bold text-5xl text-white mb-4 lg:mb-0">Meus Projetos</h1>
             <button 
             onClick={() => navigate("/NewProject")}
