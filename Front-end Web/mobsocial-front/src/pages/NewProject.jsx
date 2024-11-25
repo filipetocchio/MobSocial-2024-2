@@ -1,56 +1,46 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { useLocation } from "react-router-dom";
 import Input from "../components/cadastro/Input";
 import { FormControl } from "@mui/material";
 import Vagas from "../components/novo-projeto/vagas";
 import Plus from "../assets/plus.svg";
 import { createProject } from "../services/createProject";
-import {editONG} from "../services/editProject"
-import User from "../assets/user.svg"
+import { editONG, getProject } from "../services/editProject";
+import User from "../assets/user.svg";
+import { UserContext } from "../context/UserContext";
 
-const NewProject = ({ project, updateProjects }) => {
+const NewProject = ({ project }) => {
+  const { projectData } = useContext(UserContext);
+  console.log(projectData);
   const location = useLocation();
-  const projectFromState = location.state?.project;
-  console.log(projectFromState)
   const buttonNameFromState = location.state?.buttonName || "Criar";
-  const [titulo, setTitulo] = useState("");
-  const [descricao, setDescricao] = useState("");
-  const [categoria, setCategoria] = useState("");
-  const [vagas, setVagas] = useState("");
+  const [nome, setNome] = useState(projectData.nome);
+  const [descricao, setDescricao] = useState(projectData.descricao);
+  const [categoria, setCategoria] = useState(projectData.categoria);
+  const [vagas, setVagas] = useState(projectData.vagas);
 
   useEffect(() => {
-    const proj = project || projectFromState;
+    const proj = projectData ;
     if (proj) {
-      setTitulo(proj.titulo);
+      setNome(proj.nome);
       setDescricao(proj.descricao);
       setCategoria(proj.categoria);
       setVagas(proj.vagas);
     }
-  }, [project, projectFromState]);
-
-  console.log(descricao)
-
-  const updateStoredProjects = (newProject) => {
-    const storedProjects = JSON.parse(localStorage.getItem('projects')) || [];
-    const updatedProjects = projectFromState
-      ? storedProjects.map((proj) => (proj.id === projectFromState.id ? { ...proj, ...newProject } : proj))
-      : [...storedProjects, newProject];
-    localStorage.setItem('projects', JSON.stringify(updatedProjects));
-  };
+  }, [project, projectData]);
 
   const handleUpdate = async () => {
-    if (projectFromState) {
+    if (projectData) {
       const updatedProject = {
-        id: projectFromState.id,
-        titulo,
+        id: projectData.id,
+        nome: nome,
         descricao,
         categoria,
         vagas,
       };
 
       try {
-        await editONG(projectFromState.id, updatedProject);
-        updateProjects(updatedProject);
+        const result = await editONG(projectData.id, updatedProject);
         alert('Projeto atualizado com sucesso!');
       } catch (error) {
         alert('Erro ao atualizar o projeto.');
@@ -67,19 +57,18 @@ const NewProject = ({ project, updateProjects }) => {
 
     const newProject = {
       id: Date.now(),
-      nome: titulo,
-      descricao,
-      categoria,
+      nome: nome,
+      descricao: descricao,
+      categoria: categoria,
       data: `${formatDate(new Date())} a ${formatDate(new Date())}`,
       hora: "",
       local: "",
-      hashimg: User,
+      hashimg: User, // Ensure User logo is set
       numerVagas: 0,
     };
 
     try {
       await createProject(newProject);
-      updateProjects(newProject);
       alert('Projeto criado com sucesso!');
     } catch (error) {
       console.log('Erro ao criar o projeto', error);
@@ -100,9 +89,9 @@ const NewProject = ({ project, updateProjects }) => {
             <Input
               id="titulo"
               type="text"
-              value={titulo}
+              value={nome}
               onChange={(e) => {
-                setTitulo(e.target.value);
+                setNome(e.target.value);
               }}
               focusedInput
               setFocusedInput
@@ -160,7 +149,7 @@ const NewProject = ({ project, updateProjects }) => {
           <div className="w-[30%]">
           <button
             className="bg-black hover:scale-105 duration-75 border-2 text-xl border-[#A3A3A3] text-[#A3A3A3] w-full rounded-lg h-20"
-            onClick={projectFromState ? handleUpdate : handleCreate}
+            onClick={projectData ? handleUpdate : handleCreate}
           >
             {buttonNameFromState}
           </button>

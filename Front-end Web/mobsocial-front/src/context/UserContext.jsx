@@ -8,12 +8,14 @@ export const UserProvider = ({ children }) => {
     return storedIsOng === 'true'; // Converte a string para booleano
   });
 
+  const [projectData, setProjectData] = useState([]);
+ 
   useEffect(() => {
     localStorage.setItem('isOng', isOng);
   }, [isOng]);
 
   return (
-    <UserContext.Provider value={{ isOng, setIsOng }}>
+    <UserContext.Provider value={{ isOng, setIsOng, projectData, setProjectData }}>
       {children}
     </UserContext.Provider>
   );

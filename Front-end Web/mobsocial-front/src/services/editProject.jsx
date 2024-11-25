@@ -2,16 +2,15 @@ import axios from 'axios';
 
 const editONG = async (voluntarioId, data) => {
   try {
-    const response = await axios.put(`http://localhost:8001/api/v1/TbUsuarioONG/${voluntarioId}`, data, {
+    console.log("Enviando dados para atualização:", data); // Log dos dados enviados
+    const response = await axios.put(`http://localhost:8001/api/v1/TbProjeto/${voluntarioId}`, data, {
       headers: {
         'Content-Type': 'application/json',
       },
     })
     const result = response.data
-    if (response.status == 200) {
-      window.location.href = "/DashboardONG"
-    }
-    return result;
+    console.log("Resposta do servidor:", response.data); // Log da resposta do servidor
+    return { ...data, ...result, nome: data.nome }; // Include updated project in the response
   } catch (error) {
     console.error('Erro ao atualizar o projeto:', error);
     throw error;
@@ -21,9 +20,8 @@ const editONG = async (voluntarioId, data) => {
 const getProject = async (data) => {
   try {
     const response = await axios.get(`http://localhost:8001/api/v1/TbProjeto`);
-    const result = response.data;
-    data(result)
-    return result;
+    data(response.data)
+    return response.data;
   } catch (error) {
     console.error('Erro ao buscar projeto:', error);
     throw error;
