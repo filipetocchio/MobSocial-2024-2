@@ -27,7 +27,6 @@ TbUsuarioVoluntarioRouter.patch("/:id", patchTbUsuarioVoluntario);
 TbUsuarioVoluntarioRouter.delete("/", deleteTbUsuarioVoluntario);
 TbUsuarioVoluntarioRouter.delete("/:id", deleteByIDTbUsuarioVoluntario);
 
-// Nova rota de upload de foto com ID
 TbUsuarioVoluntarioRouter.post(
   "/uploadPhoto/:id",
   upload.single("photo"),

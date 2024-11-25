@@ -28,7 +28,7 @@ model TbUsuarioVoluntario {
   telefone String
   areasInteresse  String
   experiencia     String?
-  fotoPerfil      String? // Novo campo para a foto de perfil
+  fotoPerfil      String?
 
   // log
   openedat   DateTime  @default(now()) // opening date
