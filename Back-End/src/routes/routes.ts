@@ -40,7 +40,7 @@ apiV1Router.use("/loginONG", TbUsuarioONGLoginRouter);
 apiV1Router.use("/logoutONG", tbUsuarioONGLogoutRouter);
 apiV1Router.use("/refreshONG", TbUsuarioONGRefreshToneRouter);
 
-apiV1Router.use("/TbUsuarioVoluntario", TbUsuarioVoluntarioRouter);
+apiV1Router.use("/TbUsuarioVoluntario", TbUsuarioVoluntarioRouter); // Inclui todas as rotas relacionadas a voluntários
 apiV1Router.use("/loginVoluntario", TbUsuarioVoluntarioLoginRouter);
 apiV1Router.use("/logoutVoluntario", tbUsuarioVoluntarioLogoutRouter);
 apiV1Router.use("/refreshVoluntario", TbUsuarioVoluntarioRefreshToneRouter);

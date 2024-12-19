@@ -27,6 +27,7 @@ model TbUsuarioVoluntario {
   cpf String?
   areasInteresse  String
   experiencia     String?
+  fotoPerfil      String?
 
   // log
   openedat   DateTime  @default(now()) // opening date
