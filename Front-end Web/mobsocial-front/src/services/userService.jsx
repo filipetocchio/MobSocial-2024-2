@@ -3,7 +3,7 @@ import axios from 'axios'
 
 const getUserById = async (id, setData) => {
     try {
-        const response = await axios.get(`http://localhost:8001/api/v1/TbUsuarioONG/${id}`, {
+        const response = await axios.get(`https://mobsocial-2024-2.onrender.com/api/v1/TbUsuarioONG/${id}`, {
             headers: {
                 'Content-Type': 'application/json',
                 'Access-Control-Allow-Origin': '*', // Permite todas as origens
@@ -26,7 +26,7 @@ const getUserById = async (id, setData) => {
 
 const getUserByIdVoluntario = async (id, setData) => {
     try {
-        const response = await axios.get(`http://localhost:8001/api/v1/TbUsuarioVoluntario/${id}`, {
+        const response = await axios.get(`https://mobsocial-2024-2.onrender.com/api/v1/TbUsuarioVoluntario/${id}`, {
             headers: {
                 'Content-Type': 'application/json',
                 'Access-Control-Allow-Origin': '*', // Permite todas as origens

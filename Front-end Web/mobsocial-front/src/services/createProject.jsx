@@ -2,7 +2,7 @@ import axios from 'axios'
 
 const createProject = async (projectData) => {
     try {
-      const response = await axios.post("http://localhost:8001/api/v1/TbProjeto", projectData, {
+      const response = await axios.post("https://mobsocial-2024-2.onrender.com/api/v1/TbProjeto", projectData, {
         headers: {
           'Content-Type': 'application/json',
         },
@@ -20,7 +20,7 @@ const createProject = async (projectData) => {
 
   const getAllProject = async (data) => {
     try {
-        const response = await axios.get("http://localhost:8001/api/v1/TbProjeto", {
+        const response = await axios.get("https://mobsocial-2024-2.onrender.com/api/v1/TbProjeto", {
             headers: {
                 'Content-Type': 'application/json',
             },

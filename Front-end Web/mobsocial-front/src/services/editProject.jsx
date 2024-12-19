@@ -3,7 +3,7 @@ import axios from 'axios';
 const editONG = async (voluntarioId, data) => {
   try {
     console.log("Enviando dados para atualização:", data); 
-    const response = await axios.put(`http://localhost:8001/api/v1/TbProjeto/${voluntarioId}`, data, {
+    const response = await axios.put(`https://mobsocial-2024-2.onrender.com/api/v1/TbProjeto/${voluntarioId}`, data, {
       headers: {
         'Content-Type': 'application/json',
       },
@@ -19,7 +19,7 @@ const editONG = async (voluntarioId, data) => {
 
 const getProject = async (data) => {
   try {
-    const response = await axios.get(`http://localhost:8001/api/v1/TbProjeto`);
+    const response = await axios.get(`https://mobsocial-2024-2.onrender.com/api/v1/TbProjeto`);
     data(response.data)
     return response.data;
   } catch (error) {

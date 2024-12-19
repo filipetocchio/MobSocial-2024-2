@@ -5,7 +5,7 @@ import 'react-toastify/dist/ReactToastify.css';
 
 const CadastrarServiceVoluntario = async (data) => {
     try {
-        const response = await axios.post("http://localhost:8001/api/v1/TbUsuarioVoluntario", data, {
+        const response = await axios.post("https://mobsocial-2024-2.onrender.com/api/v1/TbUsuarioVoluntario", data, {
             headers: {
                 'Content-Type': 'application/json',
                 'Access-Control-Allow-Origin': '*', // Permite todas as origens
@@ -30,7 +30,7 @@ const CadastrarServiceVoluntario = async (data) => {
 
 const CadastrarServiceONG = async (data) => {
     try {
-        const response = await axios.post("http://localhost:8001/api/v1/TbUsuarioONG", data, {
+        const response = await axios.post("https://mobsocial-2024-2.onrender.com/api/v1/TbUsuarioONG", data, {
             headers: {
                 'Content-Type': 'application/json',
                 'Access-Control-Allow-Origin': '*', // Permite todas as origens

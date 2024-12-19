@@ -4,7 +4,7 @@ import { toast } from "react-toastify";
 const EditarVoluntarioService = async (data, token) => {
   try {
     const response = await axios.put(
-      "http://localhost:8001/api/v1/TbUsuarioVoluntario/1",
+      "https://mobsocial-2024-2.onrender.com/api/v1/TbUsuarioVoluntario/1",
       JSON.stringify(data),
       {
         headers: {
