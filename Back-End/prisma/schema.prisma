@@ -23,9 +23,8 @@ model TbUsuarioVoluntario {
   username     String  @unique
   password     String
   refreshToken String? @unique
-
-  cpf             String
-  telefone String
+  telefone String?
+  cpf String?
   areasInteresse  String
   experiencia     String?
 
